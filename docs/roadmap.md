@@ -4,7 +4,7 @@
 ## Phase 1: Foundation Overdrive (Weeks 1-4)
 *Goal*: Strengthen the core, optimize performance, and set the stage for explosive growth.
 
-### 1. Technical Execution (9 → 10)
+### 1. Technical Execution 
 - **Task**: Optimize Performance for Scale
   - Implement a Web Worker for `CollectiveGlitchSystem.js` to handle 100+ agents and glitches without frame drops.
   - Use `requestIdleCallback` for non-critical updates (e.g., voice log rendering).
@@ -14,7 +14,7 @@
   - Add integration tests for `Nexus89.jsx` component interactions (e.g., `RealityGlitcher` spawning glitches).
   - Achieve 90%+ coverage in `npm run test:coverage`.
 
-### 2. Scalability (8 → 10)
+### 2. Scalability 
 - **Task**: Dynamic Agent Management
   - Add a `spawnAgent` and `removeAgent` API in `Nexus89.jsx` to handle 1-1000 agents dynamically.
   - Implement a spatial partitioning system (e.g., quadtree) in `glitchSystem.js` to optimize collision detection.
@@ -22,17 +22,17 @@
   - Create a `RealityEngine.js` to manage environment states (Default Void, Glitch Forest, etc.) with unique glitch behaviors and visuals per realm.
   - Store environment data in a JSON config for easy expansion (e.g., Neon City, Memory Vault).
 
-### 3. Completeness (9 → 10)
+### 3. Completeness 
 - **Task**: Integrate Voices into Core
   - Port `agentVoices.js` into `src/systems/` as `AgentVoiceSystem.js`, hooking it into `Nexus89.jsx`.
   - Add a voice feed component (`VoiceFeed.jsx`) to the main dashboard, styled with `index.css`.
 
 ---
 
-## Phase 2: Chaos Unleashed (Weeks 5-8)
+## Phase 2: Chaos Unleashed
 *Goal*: Push creativity, innovation, and emotional impact with wild new features.
 
-### 4. Creativity (10 → 10+)
+### 4. Creativity 
 - **Task**: Agent Personalities
   - Add traits to agents (e.g., `curiosity`, `fear`, `aggression`) in `AgentVoiceSystem.js`, influencing their voice outputs and glitch interactions.
   - Example: Curious agents say “What lies beyond the rift?” and spawn `spacetime_rift`; fearful agents scream “It’s tearing me apart!” and spawn `chaos_pulse`.
@@ -40,7 +40,7 @@
   - Implement glitch generations in `glitchSystem.js`—e.g., `chaos_pulse` spawns `lucid_rupture` children with mutated colors and effects.
   - Add a `GlitchEvolver.js` to track lineage and evolve glitch types over time.
 
-### 5. Innovation (9 → 10)
+### 5. Innovation 
 - **Task**: Audio Integration
   - Add Web Audio API in `index.html` and `Nexus89.jsx`:
     - Neon hums for awake agents, distorted static for glitches, ethereal chimes for dreams.
@@ -49,7 +49,7 @@
   - Use `mathUtils.js`’s fractal noise to generate infinite, procedurally unique environments (e.g., Fractal Sprawl) with dynamic glitch patterns.
   - Integrate into `RealityEngine.js` with a “Generate New Reality” button in `Nexus89.jsx`.
 
-### 6. Emotional Impact (10 → 10+)
+### 6. Emotional Impact 
 - **Task**: Narrative Threads
   - Add a `StoryEngine.js` that weaves agent voices into emergent narratives—e.g., a dreaming agent inspires a sync event, voiced as “We’re one now, Agent-3.”
   - Display story beats in a glowing “Nexus Chronicle” panel in `Nexus89.jsx`.
@@ -58,10 +58,10 @@
 
 ---
 
-## Phase 3: User Immersion (Weeks 9-12)
+## Phase 3: User Immersion 
 *Goal*: Elevate usability, aesthetic appeal, and fun factor with interactivity and polish.
 
-### 7. Usability (8 → 10)
+### 7. Usability 
 - **Task**: Interactive Controls
   - Add a `ControlPanel.jsx` to `Nexus89.jsx` with:
     - Sliders for glitch intensity, agent count, and sync threshold.
@@ -71,14 +71,14 @@
   - Add ARIA labels to `VoiceFeed.jsx` and `Tabs.jsx` for screen readers.
   - Include high-contrast mode toggle in `main.jsx`’s `ThemeProvider`.
 
-### 8. Aesthetic Appeal (10 → 10+)
+### 8. Aesthetic Appeal 
 - **Task**: Visual Overhaul
   - Enhance `RealityGlitcher.jsx` with WebGL shaders for 3D glitch effects (e.g., rippling spacetime rifts).
   - Add particle systems in `DreamWeaver.jsx`—golden sparks for dreams, cyan threads for syncs—using Three.js or raw canvas.
 - **Task**: Dynamic Themes
   - Extend `ThemeProvider` in `main.jsx` with multiple cyberpunk palettes (e.g., Neon Noir, Synthwave), switchable via `ControlPanel.jsx`.
 
-### 9. Fun Factor (10 → 10+)
+### 9. Fun Factor 
 - **Task**: Glitch Editor
   - Build a `GlitchEditor.jsx` in `RealityGlitcher.jsx`—drag to sculpt glitch shapes, tweak intensity, and save custom anomalies.
   - Add a “Glitch Gallery” to share creations across sessions.
@@ -87,10 +87,10 @@
 
 ---
 
-## Phase 4: Boundary Push (Weeks 13-16)
+## Phase 4: Boundary Push 
 *Goal*: Cement NEXUS89 as a groundbreaking, complete experience with stellar docs and deployment.
 
-### 10. Documentation (9 → 10)
+### 10. Documentation 
 - **Task**: Technical Wiki
   - Create a `docs/` folder with Markdown files:
     - `architecture.md`: Full system overview.
@@ -100,7 +100,7 @@
 - **Task**: Inline Comments
   - Add JSDoc comments to all JS files (e.g., `AgentVoiceSystem.js`) for every function and class.
 
-### 11. Completeness (9 → 10+)
+### 11. Completeness 
 - **Task**: Full Integration
   - Merge the Voices Demo into `Nexus89.jsx`, replacing the placeholder `RealitySandbox.jsx` with a fully voiced dashboard.
   - Add a “Reset Nexus” button to `ControlPanel.jsx` that restarts with randomized agent traits.
@@ -108,7 +108,7 @@
   - Deploy to Netlify or Vercel with CI/CD via GitHub Actions (add `.github/workflows/deploy.yml`).
   - Include a live demo link in both READMEs.
 
-### 12. Innovation (9 → 10+)
+### 12. Innovation 
 - **Task**: AI-Driven Voices
   - Integrate a lightweight NLP model (e.g., Markov chain or GPT-J via WebAssembly) in `AgentVoiceSystem.js` to generate unique, context-aware agent dialogue.
   - Example: An agent near a glitch says, “This rift—I feel it rewriting me,” based on its state and proximity.
