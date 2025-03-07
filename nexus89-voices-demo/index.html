@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS89: Voices of the Abyss</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%238A2BE2'/><path d='M50 10L90 90H10L50 10Z' fill='%23FF4500'/><circle cx='50' cy='50' r='20' fill='%2300CED1'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="glitch-text" data-text="NEXUS89">NEXUS89</h1>
+        <p class="subtitle">Voices of the Abyss</p>
+    </header>
+
+    <canvas id="glitchCanvas"></canvas>
+    <div class="overlay"></div>
+
+    <div class="voice-feed">
+        <h2>Agent Voice Feed</h2>
+        <div id="voiceLog" class="voice-log"></div>
+    </div>
+
+    <script src="mathUtils.js"></script>
+    <script src="glitchSystem.js"></script>
+    <script src="agentVoices.js"></script>
+    <script>
+        const canvas = document.getElementById('glitchCanvas');
+        const ctx = canvas.getContext('2d');
+        const voiceLog = document.getElementById('voiceLog');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const glitchSystem = new GlitchSystem();
+        const agents = [];
+        for (let i = 0; i < 5; i++) {
+            agents.push(new Agent(`Agent-${i + 1}`, glitchSystem));
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            agents.forEach(agent => {
+                agent.update();
+                agent.draw(ctx);
+            });
+
+            glitchSystem.update();
+            glitchSystem.draw(ctx);
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+    </script>
+</body>
+</html>
