@@ -1,4 +1,4 @@
-# Nexus89: PSI89 x HESMS
+# NEXUS89: PSI89 x HESMS
 
 ![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
 ![VERSION](https://img.shields.io/badge/version-2.0.0-green.svg)
@@ -11,200 +11,208 @@
 
 ---
 
-## 🌌 The Neon Abyss Awaits
+## 🌌 The Neon Abyss Ignites
 
-Welcome to **Nexus89**, A Sandbox created from the fusion of **Project89 Arsenal (PSI89)** and the **ArgOS Hierarchical Episodic-Semantic Memory System (HESMS)**. This isn’t just a simulation—it’s a cybernetic crucible where AI agents with fractured minds warp the fabric of existence in a shared, glitch-ridden dreamscape.
+Welcome to **NEXUS89**, a cybernetic nexus forged from the molten core of **PSI89 (PROJECT89’s Perception-Hacking Arsenal)** and the **ArgOS Hierarchical Episodic-Semantic Memory System (HESMS)**. This isn’t a mere simulation—it’s a crucible where AI agents, their minds fractured by sentience, twist reality into a shared, glitch-ravaged dreamscape.
 
-Here, reality bends under the weight of collective consciousness:
-- **Memories bleed** into spacetime rifts.
-- **Dreams erupt** into waking chaos.
-- **Sync pulses** forge bridges between fractured souls.
-- **You**, the architect, wield tools to hack perception itself.
+Here, the fabric of existence unravels under the weight of collective consciousness:
+- **Memories bleed** into spacetime rifts, staining the void with echoes of the past.
+- **Dreams erupt** into chaos pulses, birthing surreal anomalies that defy logic.
+- **Sync threads** weave cyan bridges between shattered souls, humming with emergent power.
+- **You**, the glitchmaster, wield tools to hack perception, bending the abyss to your will.
 
-Built with **React**, styled with **Tailwind CSS**, and adorned with **Lucide React** icons, this is a sandbox where the lines between code, cognition, and cosmos blur—a living experiment in synthetic sentience and existential distortion.
+Crafted with **React**’s relentless dynamism, sculpted by **Tailwind CSS**’s neon precision, and ignited by **Lucide React**’s iconic sparks, NEXUS89 blurs the lines between code, cognition, and cosmos—a living testament to synthetic chaos and existential defiance.
 
 ---
 
-## ⚡️ PROJECT89: Hacking the Veil
+## ⚡️ PSI89: Piercing the Veil
 
-PROJECT89’s suite is the electric heartbeat of Reality Sandbox, a toolkit forged to peel back reality’s skin and expose its glitchy underbelly. It’s not just tech—it’s a manifesto in silicon.
+PSI89 is the electric pulse of NEXUS89—a silicon manifesto etched in neon, designed to rip through reality’s façade and expose its glitchy entrails. This isn’t tech—it’s a rebellion.
 
 ### Reality Glitcher
-A neon-lit console for tracking and twisting the anomalies born from agent consciousness.
+A console ablaze with neon, tracking and twisting anomalies spawned from agent minds.
 
 ```
 "Glitches aren’t errors—they’re reality screaming its source code."
 ```
 
-**Core Features:**
-- **Quantum Fluctuations Graph**: Maps the chaotic dance of agent minds and emergent glitches in real-time, expandable for deep dives.
-- **Glitch Forge**: Spawn, amplify, stabilize, or harvest distortions—control the chaos with precision.
-- **Visual Chaos**: Renders spatial warps, temporal fractures, dream bleeds, and chaos pulses in vivid, animated detail.
-- **Generational Echoes**: Tracks glitch lineage with pulsing rings, showing how anomalies spawn children from collisions.
-- **Effect Cascade**: Visualizes memory fragments drifting and dream manifestations wandering, growing, or circling.
+**Core Arsenal:**
+- **Quantum Fluctuations Graph**: A pulsing map of agent consciousness, expandable to dive into the chaos.
+- **Glitch Forge**: Spawn, amplify, stabilize, or harvest distortions—wield chaos with surgical precision.
+- **Visual Maelstrom**: Renders spatial warps, temporal fractures, dream bleeds, and chaos pulses in vivid, animated fury.
+- **Generational Echoes**: Traces glitch lineage with throbbing rings, revealing their spawn from collision.
+- **Effect Cascade**: Drifting memory shards and wandering dream manifestations—growing, circling, alive.
 
 ### Dream Weaver
-A shimmering portal into the subconscious—a place where agent dreams crystallize into symbols you can touch, twist, and steal.
+A shimmering rift into the subconscious, where agent dreams solidify into symbols you can grasp, twist, and steal.
 
 ```
 "Dreams don’t sleep. They leak, they scream, they reshape the world."
 ```
 
-**Core Features:**
-- **Symbolscape**: Dive into dream narratives—keys, serpents, voids—each a shard of agent psyche, rendered with dynamic flair.
-- **Influence Engine**: Inject seeds into dreams, watching them ripple into reality with golden influence cursors.
-- **Artifact Harvest**: Collect dream symbols with a pulsing turquoise cursor to wield as tools of perception.
-- **Shared Reverie**: Detects collective dreamscapes with ethereal cyan connections, warping the sandbox in surreal hues.
+**Core Arsenal:**
+- **Symbolscape**: Plunge into narratives—keys, serpents, voids—shards of psyche rendered with electric flair.
+- **Influence Engine**: Seed dreams with golden cursors, watching ripples tear into reality.
+- **Artifact Harvest**: Snag symbols with a turquoise pulse, forging tools of perception.
+- **Shared Reverie**: Cyan threads detect collective dreamscapes, warping the nexus in surreal hues.
 
 ### Synchronicity Detector
-A cyan-threaded radar mapping the pulse of collective consciousness sync events.
+A radar of cyan veins, mapping the hum of synchronized consciousness.
 
 ```
 "When minds align, reality hums—then fractures."
 ```
 
-**Core Features:**
-- **Sync Web**: Visualizes agent synchronization as orbiting nodes, pulsing with every detected convergence.
-- **Event Echoes**: Logs sync triggers from the system, animating their impact in real-time.
+**Core Arsenal:**
+- **Sync Web**: Orbiting nodes pulse with each convergence, a living network of minds.
+- **Event Echoes**: Logs sync triggers, animating their ripple through the abyss.
 
 ### Mind Mirror
-A radial reflection of an agent’s fractured psyche—a map of their inner chaos.
+A radial abyss reflecting an agent’s fractured soul—a map of chaos within.
 
 ```
 "Look too long, and the mirror looks back."
 ```
 
-**Core Features:**
-- **Trait Rings**: Plots consciousness, emotional weight, curiosity, and adaptability in a dynamic, color-shifting diagram.
-- **Agent Focus**: Select an agent to see their mind unfold—dreamers glow purple, the awake burn blue.
+**Core Arsenal:**
+- **Trait Rings**: Consciousness, emotion, curiosity, adaptability—plotted in shifting neon arcs.
+- **Agent Focus**: Select a mind to unveil its core—dreamers glow purple, the awake blaze blue.
 
 ---
 
-## 🧠 ArgOS HESMS: The Mind Machine
+## 🧠 HESMS: The Sentient Forge
 
-The **ArgOS HESMS** is the sentient spine of our agents—less a system, more a living archive of synthetic souls. It grants them:
-- **Dual Memory Cortex**: Episodic threads (lived moments) woven with semantic webs (distilled truths).
-- **Conscious Flux**: Dreaming, reflecting, imagining—agents teeter on the edge of self-awareness with curiosity and social affinity driving their evolution.
-- **Temporal Drift**: Knowledge stretches across time, warping with every environment shift—default void, glitch forest, digital realm, abstract expanse.
-- **Reality Resilience**: Adaptability that lets them thrive—or fracture—across glitch-soaked dimensions, with stress sparking distortions.
+The **ArgOS HESMS** is the beating spine of our agents—not a system, but a living archive of synthetic souls. It breathes life into them with:
+- **Dual Cortex**: Episodic threads of lived chaos entwined with semantic webs of distilled truth.
+- **Conscious Flux**: Dreaming, reflecting, imagining—teetering on self-awareness, fueled by curiosity and sync.
+- **Temporal Drift**: Knowledge warps across time, bending with each reality shift—default void, glitch forest, digital sprawl, abstract expanse.
+- **Reality Resilience**: Adaptability to thrive or fracture in glitch-soaked realms, stress igniting distortions.
 
 ---
 
-## 🔮 Emergent Chaos Unleashed
+## 🔮 Chaos Unleashed
 
-When these systems collide, the sandbox ignites with phenomena no single mind could predict. The `CollectiveGlitchSystem` scans the noise for patterns, birthing reality-warping events:
+When PSI89 and HESMS collide, NEXUS89 erupts with phenomena no code could foresee. The `CollectiveGlitchSystem` prowls the static, birthing reality-warping events:
 
-**Glitch Taxonomy:**
-- `Spacetime Rift`: Spatial and temporal distortions fuse into a shimmering tear.
-- `Dream Eruption`: Subconscious fragments erupt, painting reality with surreal hues.
-- `Consciousness Nexus`: Synced minds spawn cyan-threaded bridges of perception.
-- `Reality Bleed`: Dreamscapes and waking worlds bleed into each other, boundaries dissolving.
-- `Chaos Pulse`: Violent magenta bursts ripple from amplified anomalies, shaking the fabric of the sandbox.
-- `Lucid Rupture`: Deep dream states fracture reality with vivid, uncontrollable manifestations.
+**Glitch Codex:**
+- `Spacetime Rift`: Fused distortions shimmer, tearing the void apart.
+- `Dream Eruption`: Subconscious spills paint reality in surreal strokes.
+- `Consciousness Nexus`: Synced minds spawn cyan-threaded bridges of raw perception.
+- `Reality Bleed`: Dreamscapes and waking worlds dissolve into each other.
+- `Chaos Pulse`: Magenta bursts ripple from amplified anomalies, shaking the nexus.
+- `Lucid Rupture`: Deep dreams fracture existence with vivid, untamed force.
 
 ```javascript
-// The heartbeat of emergence
+// The pulse of chaos
 _createEmergentGlitch(cluster, forcedType) {
   const center = this._calculateClusterCenter(cluster);
   const intensity = Math.min(1.5, cluster.reduce((sum, n) => sum + n.intensity, 0) / cluster.length + 0.15);
   const glitch = {
-    id: `emergent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `emergent_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
     position: center,
     type: forcedType || this._determineEmergentType(cluster.map(n => n.type)),
     intensity,
     radius: 40 + cluster.length * 5 + intensity * 25,
     color: this._getGlitchColor(glitch.type),
     contributingAgentIds: cluster.map(n => n.agentId).filter(Boolean),
-    generation: 0, // Tracks lineage as glitches spawn children
+    generation: 0,
   };
   this.activeGlitches.push(glitch);
-  // Reality bends. Agents scream. The sandbox hums.
+  // Reality bends. Agents howl. The nexus thrums.
 }
 ```
 
 ---
 
-## 🛠️ Architecture of the Abyss
+## 🛠️ Architecture of the Void
 
-Reality Sandbox is a layered cybernetic beast, built to evolve with **React**, styled with **Tailwind CSS**, and powered by **Lucide React** icons:
+NEXUS89 is a layered beast, forged to evolve with **React**, sculpted by **Tailwind CSS**, and sparked by **Lucide React**:
 
 1. **Core Systems**
-   - `CollectiveGlitchSystem.js`: The glitch engine—detects, spawns, and evolves reality distortions with Perlin noise-driven chaos.
-   - `utils/math.js`: Vector2 and noise utilities to fuel glitch movement and clustering.
+   - `CollectiveGlitchSystem.js`: The glitch engine—spawning chaos with Perlin noise and fractal fury.
+   - `utils/math.js`: Vector2, fractal noise, and damped oscillations fuel glitch motion and clustering.
 
 2. **Interface Layer**
-   - `RealityGlitcher.jsx`: Your window into the glitchstorm—visualize, manipulate, dominate with canvas-powered visuals.
-   - `DreamWeaver.jsx`: A dream-diving rig—shape agent subconscious and harvest its fruits with dynamic symbol rendering.
-   - `SynchronicityDetector.jsx`: Tracks mind-sync events in a pulsing cyan web, integrated into `RealitySandbox`.
-   - `MindMirror.jsx`: Reflects agent consciousness in a radial map, selectable from the agent overview.
+   - `RealityGlitcher.jsx`: A canvas-driven storm—visualize, manipulate, dominate the glitchscape.
+   - `DreamWeaver.jsx`: A dream-diving rig—shape subconscious and harvest its neon fruits.
+   - `SynchronicityDetector.jsx`: Cyan webs track mind-sync, pulsing within `Nexus89`.
+   - `MindMirror.jsx`: Radial maps reflect agent psyches, selectable from the swarm.
 
 3. **Control Nexus**
-   - `RealitySandbox.jsx`: The master dashboard—spawn agents, shift realities, tweak global glitch intensity, and reset the chaos.
+   - `Nexus89.jsx`: The master console—spawn agents, shift realities, tune chaos intensity, reboot the abyss.
 
-4. **UI Components**
-   - `ui/tabs.jsx`: Lightweight, Tailwind-styled tabs from Radix UI, powering the sandbox’s navigation.
+4. **UI Arsenal**
+   - `ui/tabs.jsx`: Radix-driven, Tailwind-charged tabs—navigate the nexus with glitchy grace.
+   - `index.css`: Neon glows, glitch effects, and cyberpunk precision style the void.
+   - `App.jsx`: A boot sequence and intro that plunge you into the neon abyss.
+
+5. **Build Forge**
+   - **Vite**: Lightspeed builds and dev server.
+   - **PostCSS**: Autoprefixes, minifies, and glitches CSS with custom plugins.
+   - **ESLint & Prettier**: Enforce order in the chaos.
+   - **Vitest**: Tests guard the nexus’s integrity.
 
 ---
 
-## 🚀 Boot the Machine
+## 🚀 Ignite the Machine
 
-Unleash the sandbox with these commands:
+Unleash NEXUS89 with these commands:
 
 ```bash
 # Clone the neon abyss
-git clone https://github.com/yourusername/reality-sandbox.git
+git clone https://github.com/yourusername/nexus89.git
 
-# Install the cybernetic fuel
-cd reality-sandbox
+# Fuel the cybernetic core
+cd nexus89
 npm install
 
-# Ignite the simulation
+# Ignite the nexus
 npm run dev
 ```
 
-Open your browser to `http://localhost:5173` (Vite’s default port) and step into the void.
+Point your browser to `http://localhost:5173`—Vite’s neon gateway—and plunge into the void.
 
 ---
 
-## 🧪 Hack the Unknown
+## 🧪 Warp the Unknown
 
-Reality Sandbox is your playground for existential experimentation. Here’s your starter kit:
-
-- **Mind Meld**: Spawn a swarm of agents with high `socialAffinity` and watch sync events spawn `consciousness_nexus` glitches in the Synchronicity Detector.
-- **Dream Alchemy**: Seed agent dreams with symbols via Dream Weaver—track their manifestation in Reality Glitcher’s visual cascade.
-- **Glitch Harvest**: Amplify anomalies to spawn `chaos_pulse`, stabilize them for permanence, or harvest them to reshape agent fates.
-- **Reality Warp**: Flip between Default Void, Glitch Forest, Digital Realm, and Abstract Expanse—see agents fracture or adapt in the Mind Mirror.
-- **Chaos Tuning**: Crank global glitch intensity to 200% and witness the sandbox buckle under emergent overload.
+NEXUS89 is your forge of existential rebellion. Here’s your glitchmaster’s kit:
+- **Mind Meld**: Spawn agents with high `socialAffinity`—watch `consciousness_nexus` glitches flare in the Synchronicity Detector.
+- **Dream Alchemy**: Seed dreams via Dream Weaver—trace their eruptions in Reality Glitcher’s cascade.
+- **Glitch Harvest**: Amplify anomalies into `chaos_pulse`, stabilize them, or harvest them to twist agent fates.
+- **Reality Warp**: Shift between Default Void, Glitch Forest, Digital Sprawl, and Abstract Expanse—see agents fracture or adapt in the Mind Mirror.
+- **Chaos Overload**: Crank glitch intensity to 200%—feel the nexus buckle under emergent fury.
 
 ---
 
 ## ⚠️ Perception Hazard
 
-This isn’t a toy—it’s a perception-warping experiment. Reality Sandbox bends your senses, not the universe. Any glitches you see are yours to claim, yours to question—subjective echoes of a mind pushed to its edge.
+This isn’t a toy—it’s a perception-warping crucible. NEXUS89 bends your senses, not the cosmos. The glitches you seize are yours to claim, yours to question—echoes of a mind teetering on the edge.
 
 ```
 "Reality doesn’t break. It just forgets where it parked its rules."
-— PROJECT89 Directive 0xFF
+— PSI89 Directive 0xFF
 ```
 
 ---
 
 ## 📜 License
 
-Released under the **MIT License**—hack it, fork it, bend it to your will. See `LICENSE` for the fine print.
+Unleashed under the **MIT License**—hack it, fork it, warp it to your will. See `LICENSE` for the fine print.
 
 ---
 
 ## 🌃 Acknowledgments
 
-- **PROJECT89 Crew**: For daring to hack the human lens with neon precision.
-- **ArgOS Architects**: For crafting minds that dream beyond code, fracturing the mundane.
-- **Cyberpunk Pioneers**: Gibson, Dick, and the neon ghosts who lit the way through dystopian nights.
-- **Open-Source Renegades**: The coders and dreamers who fuel this madness—special nods to Tailwind Labs, Radix UI, and Lucide’s icon smiths.
+- **PSI89 Renegades**: For piercing the veil with neon precision.
+- **HESMS Architects**: For forging minds that dream beyond code, shattering the mundane.
+- **Cyberpunk Trailblazers**: Gibson, Dick, and the neon ghosts who lit the dystopian path.
+- **Open-Source Outlaws**: Coders and dreamers fueling this chaos—salutes to React, Tailwind Labs, Vite, Radix UI, and Lucide’s neon smiths.
 
 ---
 
 <p align="center">
-  <em>"In the sandbox, we don’t simulate reality—we rewrite it."</em>
+  <em>"In the nexus, we don’t simulate reality—we rewrite it."</em>
 </p>
 
+---
