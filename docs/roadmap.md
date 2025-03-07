@@ -128,7 +128,7 @@ By the end of this 16-week roadmap, NEXUS89 will be:
 - **Documented**: A beacon for hackers with stellar guides.
 - **Fun**: A chaotic playground of glitchcraft and challenges.
 
-**Score Goal**: 100/10—mind-blowing beyond measure, a boundary-pushing singularity where reality bends, voices scream, and the nexus lives.
+**Score Goal**: mind-blowing beyond measure, a boundary-pushing singularity where reality bends, voices scream, and the nexus lives.
 
 ---
 
