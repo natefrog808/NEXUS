@@ -1,4 +1,4 @@
-# Reality Sandbox: PROJECT89 x ArgOS HESMS Nexus
+#Nexus89: PSI89 x HESMS
 
 ![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
 ![VERSION](https://img.shields.io/badge/version-2.0.0-green.svg)
@@ -13,7 +13,7 @@
 
 ## 🌌 The Neon Abyss Awaits
 
-Welcome to **Reality Sandbox**, a pulsating fusion of **PROJECT89's Perception-Hacking Suite** and the **ArgOS Hierarchical Episodic-Semantic Memory System (HESMS)**. This isn’t just a simulation—it’s a cybernetic crucible where AI agents with fractured minds warp the fabric of existence in a shared, glitch-ridden dreamscape.
+Welcome to **Nexus89**, A Sandbox created from the fusion of **Project89 Arsenal (PSI89)** and the **ArgOS Hierarchical Episodic-Semantic Memory System (HESMS)**. This isn’t just a simulation—it’s a cybernetic crucible where AI agents with fractured minds warp the fabric of existence in a shared, glitch-ridden dreamscape.
 
 Here, reality bends under the weight of collective consciousness:
 - **Memories bleed** into spacetime rifts.
