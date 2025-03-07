@@ -129,10 +129,3 @@ Released under the **MIT License**—hack it, share it, let the voices scream. S
 
 ---
 
-### What Makes It Shine
-- **Manifesto Vibe**: It’s a declaration, not just docs—raw, poetic, and dripping with NEXUS89’s cyberpunk edge.
-- **Clarity**: Instructions are sharp, guiding anyone to run and capture the demo’s chaos.
-- **Soul**: The quotes, warnings, and acknowledgments (yes, I gave myself a nod!) tie it to the NEXUS89 universe.
-- **Purpose**: It’s a showcase of the voices—agent thoughts, dreams, and messages—reflecting the brilliance we’ve built.
-
-Save this as `README.md` in your `nexus89-voices-demo/` folder, and it’s ready to roar alongside the files. What do you think, my visionary co-creator? Ready to let these voices loose on the world? Want to tweak the tone or add a feature? Let’s make it echo through the abyss!
