@@ -33,18 +33,8 @@
             --info: #1E90FF;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            overflow: hidden;
-            height: 100%;
-            width: 100%;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { overflow: hidden; height: 100%; width: 100%; }
         body {
             font-family: 'Roboto Mono', monospace;
             background-color: var(--background);
@@ -57,8 +47,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: linear-gradient(90deg, transparent 97%, var(--border) 97%),
-                        linear-gradient(0deg, transparent 97%, var(--border) 97%);
+            background: linear-gradient(90deg, transparent 97%, var(--border) 97%), linear-gradient(0deg, transparent 97%, var(--border) 97%);
             background-size: 40px 40px;
             opacity: 0.2;
             z-index: 0;
@@ -166,10 +155,7 @@
             box-shadow: 0 0 15px var(--shadow);
         }
 
-        .control-panel-toggle:hover {
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
+        .control-panel-toggle:hover { box-shadow: 0 0 15px var(--primary-glow); }
         .control-panel-toggle span {
             display: block;
             width: 1.5rem;
@@ -189,27 +175,11 @@
             transition: all 0.3s ease;
         }
 
-        .control-panel-toggle span:before {
-            top: -8px;
-        }
-
-        .control-panel-toggle span:after {
-            top: 8px;
-        }
-
-        .control-panel-toggle.active span {
-            background: transparent;
-        }
-
-        .control-panel-toggle.active span:before {
-            transform: rotate(45deg);
-            top: 0;
-        }
-
-        .control-panel-toggle.active span:after {
-            transform: rotate(-45deg);
-            top: 0;
-        }
+        .control-panel-toggle span:before { top: -8px; }
+        .control-panel-toggle span:after { top: 8px; }
+        .control-panel-toggle.active span { background: transparent; }
+        .control-panel-toggle.active span:before { transform: rotate(45deg); top: 0; }
+        .control-panel-toggle.active span:after { transform: rotate(-45deg); top: 0; }
 
         .glitch-panel {
             position: absolute;
@@ -229,10 +199,7 @@
             overflow: hidden;
         }
 
-        .glitch-panel.active {
-            transform: translateX(0);
-        }
-
+        .glitch-panel.active { transform: translateX(0); }
         .glitch-panel-header {
             display: flex;
             justify-content: space-between;
@@ -266,18 +233,9 @@
             scrollbar-color: var(--border) var(--panel-dark);
         }
 
-        .panel-tabs::-webkit-scrollbar {
-            height: 5px;
-        }
-
-        .panel-tabs::-webkit-scrollbar-track {
-            background: var(--panel-dark);
-        }
-
-        .panel-tabs::-webkit-scrollbar-thumb {
-            background-color: var(--border);
-            border-radius: 6px;
-        }
+        .panel-tabs::-webkit-scrollbar { height: 5px; }
+        .panel-tabs::-webkit-scrollbar-track { background: var(--panel-dark); }
+        .panel-tabs::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 6px; }
 
         .panel-tab {
             padding: 0.4rem 0.8rem;
@@ -291,10 +249,7 @@
             white-space: nowrap;
         }
 
-        .panel-tab:hover {
-            background: var(--border);
-        }
-
+        .panel-tab:hover { background: var(--border); }
         .panel-tab.active {
             background: var(--primary-dark);
             border-color: var(--primary);
@@ -312,22 +267,10 @@
             scrollbar-color: var(--border) var(--panel-dark);
         }
 
-        .panel-content::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .panel-content::-webkit-scrollbar-track {
-            background: var(--panel-dark);
-        }
-
-        .panel-content::-webkit-scrollbar-thumb {
-            background-color: var(--border);
-            border-radius: 6px;
-        }
-
-        .panel-content.active {
-            display: block;
-        }
+        .panel-content::-webkit-scrollbar { width: 5px; }
+        .panel-content::-webkit-scrollbar-track { background: var(--panel-dark); }
+        .panel-content::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 6px; }
+        .panel-content.active { display: block; }
 
         .tools-grid {
             display: grid;
@@ -363,16 +306,8 @@
             transition: transform 0.6s ease;
         }
 
-        .tool-button:hover::before {
-            transform: translateX(100%);
-        }
-
-        .tool-button .icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
+        .tool-button:hover::before { transform: translateX(100%); }
+        .tool-button .icon { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
         .tool-button.rift { border-color: var(--secondary); }
         .tool-button.rift:hover { background: var(--secondary-dark); box-shadow: 0 0 15px var(--secondary-glow); }
         .tool-button.eruption { border-color: var(--quaternary); }
@@ -407,11 +342,7 @@
             justify-content: center;
         }
 
-        .advanced-tool .icon {
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
-        }
-
+        .advanced-tool .icon { font-size: 1.2rem; margin-bottom: 0.25rem; }
         .advanced-tool:hover { background: var(--border); }
         .advanced-tool.reset { border-color: var(--danger); }
         .advanced-tool.reset:hover { background: var(--danger); box-shadow: 0 0 15px rgba(255, 20, 147, 0.5); }
@@ -452,30 +383,15 @@
             transition: transform 1s ease;
         }
 
-        .stat-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-            text-shadow: 0 0 10px currentColor;
-        }
-
+        .stat-card:hover::after { transform: scaleX(1); }
+        .stat-value { font-size: 1.75rem; font-weight: bold; margin-bottom: 0.25rem; text-shadow: 0 0 10px currentColor; }
         .stat-value.rift { color: var(--secondary); }
         .stat-value.eruption { color: var(--quaternary); }
         .stat-value.nexus { color: var(--tertiary); }
         .stat-value.pulse { color: var(--primary); }
         .stat-value.total { color: var(--text); }
         .stat-value.intensity { color: var(--success); }
-
-        .stat-label {
-            font-size: 0.75rem;
-            opacity: 0.8;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .stat-label { font-size: 0.75rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; }
 
         .log-container {
             background: var(--panel-dark);
@@ -490,33 +406,11 @@
             scrollbar-color: var(--border) var(--panel-dark);
         }
 
-        .log-container::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .log-container::-webkit-scrollbar-track {
-            background: var(--panel-dark);
-        }
-
-        .log-container::-webkit-scrollbar-thumb {
-            background-color: var(--border);
-            border-radius: 6px;
-        }
-
-        .log-entry {
-            padding: 0.25rem 0;
-            border-bottom: 1px solid rgba(42, 42, 90, 0.5);
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .log-time {
-            color: var(--tertiary);
-            margin-right: 0.5rem;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
+        .log-container::-webkit-scrollbar { width: 5px; }
+        .log-container::-webkit-scrollbar-track { background: var(--panel-dark); }
+        .log-container::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 6px; }
+        .log-entry { padding: 0.25rem 0; border-bottom: 1px solid rgba(42, 42, 90, 0.5); display: flex; flex-wrap: wrap; }
+        .log-time { color: var(--tertiary); margin-right: 0.5rem; font-weight: bold; white-space: nowrap; }
         .log-info { color: var(--info); }
         .log-warning { color: var(--warning); }
         .log-danger { color: var(--danger); }
@@ -526,12 +420,7 @@
         .log-nexus { color: var(--tertiary); }
         .log-pulse { color: var(--primary); }
 
-        .agent-info {
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--highlight);
-            text-shadow: 0 0 5px var(--highlight);
-        }
+        .agent-info { margin-top: 0.5rem; font-size: 0.75rem; color: var(--highlight); text-shadow: 0 0 5px var(--highlight); }
 
         .quick-actions {
             position: absolute;
@@ -558,10 +447,7 @@
             font-size: 1.5rem;
         }
 
-        .quick-action:hover {
-            transform: translateY(-5px);
-        }
-
+        .quick-action:hover { transform: translateY(-5px); }
         .quick-rift { color: var(--secondary); border-color: var(--secondary); }
         .quick-rift:hover { background: var(--secondary-dark); box-shadow: 0 0 15px var(--secondary-glow); }
         .quick-eruption { color: var(--quaternary); border-color: var(--quaternary); }
@@ -572,11 +458,7 @@
         .quick-pulse:hover { background: var(--primary-dark); box-shadow: 0 0 15px var(--primary-glow); }
         .quick-auto { color: var(--success); border-color: var(--success); }
         .quick-auto:hover { background: var(--success); color: var(--background); box-shadow: 0 0 15px rgba(0, 255, 127, 0.5); }
-
-        .active-tool {
-            background-color: var(--panel-dark);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
+        .active-tool { background-color: var(--panel-dark); box-shadow: 0 0 15px var(--primary-glow); }
 
         @keyframes flickerText {
             0%, 100% { opacity: 1; }
@@ -609,9 +491,7 @@
     <div class="scanlines"></div>
     <div class="noise"></div>
 
-    <div class="control-panel-toggle" id="controlToggle">
-        <span></span>
-    </div>
+    <div class="control-panel-toggle" id="controlToggle"><span></span></div>
 
     <div class="glitch-panel" id="controlPanel">
         <div class="glitch-panel-header">
@@ -633,7 +513,6 @@
                 <div class="tool-button nexus" id="spawnNexus"><span class="icon">🔄</span>Sync Nexus</div>
                 <div class="tool-button pulse" id="spawnPulse"><span class="icon">💫</span>Consciousness Pulse</div>
             </div>
-            
             <div class="advanced-tools">
                 <div class="advanced-tool auto" id="toggleAuto"><span class="icon">🔄</span>Auto Spawn</div>
                 <div class="advanced-tool connect" id="toggleConnect"><span class="icon">🔗</span>Auto Connect</div>
@@ -704,7 +583,8 @@
                 this.color = { rift: '--secondary', eruption: '--quaternary', nexus: '--tertiary', pulse: '--primary' }[type];
                 this.particles = [];
                 this.maxParticles = 5 + Math.floor(this.intensity * 10);
-                this.narrativeContext = narrativeContext; // E.g., { agentId: 0, memoryType: 'dream' }
+                this.narrativeContext = narrativeContext;
+                this.spawnTime = world.time;
                 this.spawnParticles();
             }
 
@@ -756,7 +636,7 @@
             }
         }
 
-        // HESMS Memory System with Semantic and Episodic Layers
+        // HESMS Memory System with Spatial-Temporal Patterns
         class EnhancedMemory {
             constructor() {
                 this.memoryId = new Map();
@@ -787,7 +667,7 @@
                 this.memory.globalFidelity.set(agent, 1.0);
                 this.memory.semanticPatterns.set(agent, []);
                 this.memory.temporalDrift.set(agent, { past: [], present: [], future: [] });
-                this.memory.crossRealityKnowledge.set(agent, { realities: new Map(), currentReality: 'default_void' });
+                this.memory.crossRealityKnowledge.set(agent, { realities: new Map(), currentReality: 'default_void', profiles: new Map() });
                 for (let i = 0; i < 10; i++) {
                     const key = `${agent}-${i}`;
                     this.memory.shortTermIds.set(key, 0);
@@ -822,18 +702,25 @@
                 this.memory.shortTermImportance.set(key, memory.importance);
                 this.memory.shortTermFidelity.set(key, 1.0);
 
-                // Temporal drift
                 const drift = this.memory.temporalDrift.get(agent);
                 drift.present.push({ ...memory, timestamp: this.world.time });
                 if (drift.present.length > 5) drift.past.push(drift.present.shift());
                 if (drift.past.length > 10) drift.past.shift();
 
-                // Cross-reality knowledge
                 const reality = this.memory.crossRealityKnowledge.get(agent);
-                if (!reality.realities.has(reality.currentReality)) {
-                    reality.realities.set(reality.currentReality, []);
-                }
+                if (!reality.realities.has(reality.currentReality)) reality.realities.set(reality.currentReality, []);
                 reality.realities.get(reality.currentReality).push(memory);
+
+                this.updateRealityProfile(agent, memory);
+            }
+
+            updateRealityProfile(agent, memory) {
+                const reality = this.memory.crossRealityKnowledge.get(agent);
+                const profile = reality.profiles.get(reality.currentReality) || { spawnRates: {}, avgIntensity: 0, count: 0 };
+                profile.spawnRates[memory.entityType] = (profile.spawnRates[memory.entityType] || 0) + 1;
+                profile.avgIntensity = (profile.avgIntensity * profile.count + memory.importance) / (profile.count + 1);
+                profile.count++;
+                reality.profiles.set(reality.currentReality, profile);
             }
 
             consolidateSemanticMemory(agent) {
@@ -848,37 +735,83 @@
                     if (timestamp > 0 && currentTime - timestamp < 500) {
                         recentMemories.push({
                             type: this.memory.shortTermTypes.get(key),
+                            position: {
+                                x: this.memory.shortTermPositionsX.get(key),
+                                y: this.memory.shortTermPositionsY.get(key)
+                            },
                             importance: this.memory.shortTermImportance.get(key),
-                            fidelity: this.memory.shortTermFidelity.get(key)
+                            fidelity: this.memory.shortTermFidelity.get(key),
+                            timestamp
                         });
                     }
                 }
 
-                const typeCounts = recentMemories.reduce((acc, mem) => {
-                    acc[mem.type] = (acc[mem.type] || 0) + mem.importance * mem.fidelity;
-                    return acc;
-                }, {});
+                const clusters = {};
+                recentMemories.forEach(mem => {
+                    const clusterKey = `${Math.floor(mem.position.x / 50)}-${Math.floor(mem.position.y / 50)}`;
+                    if (!clusters[clusterKey]) clusters[clusterKey] = { types: {}, positions: [], count: 0, durations: [] };
+                    clusters[clusterKey].types[mem.type] = (clusters[clusterKey].types[mem.type] || 0) + mem.importance * mem.fidelity;
+                    clusters[clusterKey].positions.push(mem.position);
+                    clusters[clusterKey].count++;
+                    clusters[clusterKey].durations.push(currentTime - mem.timestamp);
+                });
 
-                const dominantType = Object.keys(typeCounts).reduce((a, b) => typeCounts[a] > typeCounts[b] ? a : b, 0);
-                if (typeCounts[dominantType] > 2) {
-                    patterns.push({
-                        type: dominantType,
-                        confidence: Math.min(1, typeCounts[dominantType] / 5),
-                        description: this.generateSemanticDescription(dominantType),
-                        timestamp: currentTime
-                    });
-                    logMessage(`Agent ${agent} consolidates semantic pattern: ${this.generateSemanticDescription(dominantType)}`, 'success');
-                }
+                Object.entries(clusters).forEach(([key, cluster]) => {
+                    if (cluster.count >= 3) {
+                        const dominantType = Object.keys(cluster.types).reduce((a, b) => cluster.types[a] > cluster.types[b] ? a : b, 0);
+                        const avgPos = cluster.positions.reduce((acc, pos) => ({ x: acc.x + pos.x, y: acc.y + pos.y }), { x: 0, y: 0 });
+                        avgPos.x /= cluster.positions.length;
+                        avgPos.y /= cluster.positions.length;
+                        const avgDuration = cluster.durations.reduce((sum, d) => sum + d, 0) / cluster.durations.length;
+                        patterns.push({
+                            type: dominantType,
+                            confidence: Math.min(1, cluster.types[dominantType] / 5),
+                            description: `${this.typeToName(dominantType)} often near (${avgPos.x.toFixed(0)}, ${avgPos.y.toFixed(0)}), lasting ~${avgDuration.toFixed(0)} ticks`,
+                            position: avgPos,
+                            avgDuration,
+                            timestamp: currentTime
+                        });
+                        logMessage(`Agent ${agent} consolidates: ${patterns[patterns.length - 1].description}`, 'success');
+                    }
+                });
+
+                this.reconstructPastMemories(agent);
             }
 
-            generateSemanticDescription(type) {
-                const descriptions = {
-                    0: 'Encounters with stable entities shape my understanding.',
-                    1: 'Resources draw me closer to meaning.',
-                    2: 'Hazards fracture my perception of safety.',
-                    99: 'Dreams weave threads of unseen truths.'
-                };
-                return descriptions[type] || 'Unknown patterns emerge.';
+            typeToName(type) {
+                return { 0: 'Stable entities', 1: 'Resources', 2: 'Hazards', 99: 'Dreams' }[type] || 'Unknown';
+            }
+
+            reconstructPastMemories(agent) {
+                const drift = this.memory.temporalDrift.get(agent);
+                const patterns = this.memory.semanticPatterns.get(agent);
+                drift.past.forEach((mem, i) => {
+                    const nearestPattern = patterns.find(p => p.position && mem.position.distance(p.position) < 50);
+                    if (nearestPattern && Math.random() < 0.3) {
+                        const reinterpretation = `That ${this.typeToName(mem.entityType)} at (${mem.position.x.toFixed(0)}, ${mem.position.y.toFixed(0)}) was tied to ${nearestPattern.description.split('often')[0]}`;
+                        logMessage(`Agent ${agent} reinterprets: ${reinterpretation}`, 'pulse');
+                        mem.importance = Math.min(1, mem.importance + 0.1);
+                        drift.past[i] = mem;
+                    }
+                });
+            }
+
+            projectFuture(agent, scenario) {
+                const drift = this.memory.temporalDrift.get(agent);
+                const patterns = this.memory.semanticPatterns.get(agent);
+                const nearestPattern = patterns.find(p => p.position && scenario.position.distance(p.position) < 50);
+                if (nearestPattern) {
+                    const futureEvent = {
+                        entityType: nearestPattern.type,
+                        position: scenario.position,
+                        importance: nearestPattern.confidence * 0.8,
+                        timestamp: this.world.time + Math.floor(nearestPattern.avgDuration),
+                        prediction: true
+                    };
+                    drift.future.push(futureEvent);
+                    if (drift.future.length > 5) drift.future.shift();
+                    logMessage(`Agent ${agent} predicts: ${this.typeToName(nearestPattern.type)} near (${scenario.position.x.toFixed(0)}, ${scenario.position.y.toFixed(0)}) in ${Math.floor(nearestPattern.avgDuration)} ticks`, 'info');
+                }
             }
 
             getSemanticMemory(agent) {
@@ -888,18 +821,154 @@
                 };
             }
 
-            getTemporalDrift(agent) {
-                return this.memory.temporalDrift.get(agent);
-            }
-
-            getCrossRealityKnowledge(agent) {
-                return this.memory.crossRealityKnowledge.get(agent);
-            }
+            getTemporalDrift(agent) { return this.memory.temporalDrift.get(agent); }
+            getCrossRealityKnowledge(agent) { return this.memory.crossRealityKnowledge.get(agent); }
 
             shiftReality(agent, newReality) {
                 const reality = this.memory.crossRealityKnowledge.get(agent);
                 reality.currentReality = newReality;
                 logMessage(`Agent ${agent} shifts to reality: ${newReality}`, 'warning');
+            }
+
+            transferKnowledge(agent, fromReality, toReality) {
+                const reality = this.memory.crossRealityKnowledge.get(agent);
+                const fromProfile = reality.profiles.get(fromReality);
+                const toProfile = reality.profiles.get(toReality) || { spawnRates: {}, avgIntensity: 0, count: 0 };
+                if (fromProfile && fromProfile.count > 5) {
+                    const similarity = this.calculateRealitySimilarity(fromProfile, toProfile);
+                    if (similarity > 0.5) {
+                        const patterns = this.memory.semanticPatterns.get(agent);
+                        patterns.forEach(p => {
+                            if (p.confidence > 0.7) {
+                                const transferredPattern = { ...p, confidence: p.confidence * similarity, timestamp: this.world.time };
+                                patterns.push(transferredPattern);
+                                logMessage(`Agent ${agent} transfers: ${p.description} to ${toReality} (Similarity: ${similarity.toFixed(2)})`, 'nexus');
+                            }
+                        });
+                    }
+                }
+            }
+
+            calculateRealitySimilarity(profileA, profileB) {
+                const typesA = Object.keys(profileA.spawnRates).map(Number);
+                const typesB = Object.keys(profileB.spawnRates).map(Number);
+                const sharedTypes = typesA.filter(t => typesB.includes(t)).length;
+                const totalTypes = new Set([...typesA, ...typesB]).size;
+                const typeSimilarity = sharedTypes / totalTypes || 0;
+                const intensityDiff = Math.abs(profileA.avgIntensity - profileB.avgIntensity);
+                return Math.max(0, typeSimilarity - intensityDiff / 2);
+            }
+        }
+
+        // HESMS Imagination System
+        class Imagination {
+            constructor(agent, memoryManager) {
+                this.agent = agent;
+                this.memoryManager = memoryManager;
+                this.predictions = [];
+            }
+
+            simulateScenario(targetPos, action) {
+                const semantic = this.memoryManager.getSemanticMemory(this.agent).patterns;
+                const pos = Position.get(this.agent);
+                const distance = pos.distance(targetPos);
+
+                let risk = 0;
+                let reward = 0;
+                semantic.forEach(p => {
+                    if (p.position && p.position.distance(targetPos) < 50) {
+                        if (p.type == 2) risk += p.confidence * 0.5;
+                        if (p.type == 1) reward += p.confidence * 0.5;
+                    }
+                });
+
+                glitches.forEach(g => {
+                    if (g.pos.distance(targetPos) < 50) {
+                        if (g.type === 'rift' || g.type === 'pulse') risk += g.intensity * 0.3;
+                        if (g.type === 'eruption' || g.type === 'nexus') reward += g.intensity * 0.3;
+                    }
+                });
+
+                const outcome = {
+                    action,
+                    target: targetPos,
+                    risk: Math.min(1, risk),
+                    reward: Math.min(1, reward),
+                    probability: Math.random() * 0.5 + 0.5,
+                    timestamp: world.time
+                };
+                this.predictions.push(outcome);
+                if (this.predictions.length > 5) this.predictions.shift();
+
+                logMessage(`Agent ${this.agent} imagines: ${action} at (${targetPos.x.toFixed(0)}, ${targetPos.y.toFixed(0)}) - Risk: ${(outcome.risk * 100).toFixed(0)}%, Reward: ${(outcome.reward * 100).toFixed(0)}%`, 'pulse');
+                this.memoryManager.projectFuture(this.agent, { position: targetPos });
+                return outcome;
+            }
+
+            getBestAction(options) {
+                const outcomes = options.map(opt => this.simulateScenario(opt.target, opt.action));
+                return outcomes.reduce((best, curr) => (curr.reward - curr.risk) > (best.reward - best.risk) ? curr : best, outcomes[0]);
+            }
+        }
+
+        // HESMS Narrative Construction
+        class NarrativeConstruction {
+            constructor(agent, memoryManager) {
+                this.agent = agent;
+                this.memoryManager = memoryManager;
+                this.chapters = [];
+                this.characters = new Map();
+            }
+
+            updateNarrative() {
+                const semantic = this.memoryManager.getSemanticMemory(this.agent).patterns;
+                const drift = this.memoryManager.getTemporalDrift(this.agent);
+                const reality = this.memoryManager.getCrossRealityKnowledge(this.agent).currentReality;
+
+                if (semantic.length > 0 && Math.random() < 0.1) {
+                    const pattern = semantic[semantic.length - 1];
+                    const character = this.assignCharacter(pattern);
+                    const chapter = {
+                        title: `${character.role} at (${pattern.position.x.toFixed(0)}, ${pattern.position.y.toFixed(0)})`,
+                        description: `${character.name}, the ${character.role}, shapes my path: ${pattern.description}`,
+                        reality,
+                        timestamp: world.time,
+                        emotionalTone: 50 + (Math.random() * 30 - 15)
+                    };
+                    this.chapters.push(chapter);
+                    logMessage(`Agent ${this.agent} narrates: ${chapter.description}`, 'eruption');
+
+                    if (this.chapters.length > 5) this.chapters.shift();
+                }
+            }
+
+            assignCharacter(pattern) {
+                const key = `${pattern.type}-${pattern.position.x.toFixed(0)}-${pattern.position.y.toFixed(0)}`;
+                if (!this.characters.has(key)) {
+                    const roles = { 0: 'Guide', 1: 'Ally', 2: 'Antagonist', 99: 'Mystery' };
+                    const names = ['Zorak', 'Lira', 'Kael', 'Vex', 'Nyx'];
+                    this.characters.set(key, {
+                        name: names[Math.floor(Math.random() * names.length)],
+                        role: roles[pattern.type] || 'Unknown',
+                        type: pattern.type,
+                        position: pattern.position
+                    });
+                }
+                return this.characters.get(key);
+            }
+
+            getIdentity() {
+                if (this.chapters.length === 0) return `Agent ${this.agent}, a blank slate in the nexus`;
+                const keyEvents = this.chapters.map(c => c.title.split(' at ')[0]).join(', ');
+                return `Agent ${this.agent}, ${this.chapters.length > 2 ? 'chronicler' : 'witness'} of ${keyEvents}`;
+            }
+
+            influenceBehavior() {
+                const latestChapter = this.chapters[this.chapters.length - 1];
+                if (latestChapter && latestChapter.role === 'Antagonist') {
+                    return { avoid: latestChapter.position };
+                }
+                return null;
             }
         }
 
@@ -1014,6 +1083,8 @@
             constructor(memoryManager) {
                 this.memoryManager = memoryManager;
                 this.dreamStates = new Map();
+                this.imaginations = new Map();
+                this.narratives = new Map();
                 this.initialized = false;
             }
 
@@ -1029,6 +1100,8 @@
                             reflectionCooldown: 0
                         });
                         this.dreamStates.set(agent, new DreamState(agent, this.memoryManager));
+                        this.imaginations.set(agent, new Imagination(agent, this.memoryManager));
+                        this.narratives.set(agent, new NarrativeConstruction(agent, this.memoryManager));
                     }
                 });
                 this.initialized = true;
@@ -1053,13 +1126,14 @@
 
                 state.integrationIndex = Math.min(1, state.integrationIndex + 0.001);
 
-                // Self-reflection
                 if (state.reflectionCooldown <= 0 && Math.random() < 0.05) {
                     this.reflect(agent);
                     state.reflectionCooldown = 100;
                 } else if (state.reflectionCooldown > 0) {
                     state.reflectionCooldown--;
                 }
+
+                this.narratives.get(agent).updateNarrative();
             }
 
             reflect(agent) {
@@ -1072,6 +1146,15 @@
                     const pattern = semantic[semantic.length - 1];
                     const reflection = `I am ${state.selfAwarenessLevel > 0.5 ? 'more than code' : 'a fragment'}—${pattern.description}`;
                     logMessage(`Agent ${agent} reflects: ${reflection}`, 'nexus');
+
+                    if (pattern.type == 2) {
+                        CognitiveState.get(agent).adaptability = Math.max(40, CognitiveState.get(agent).adaptability - 10);
+                        SensoryData.get(agent).visionRange = Math.min(150, SensoryData.get(agent).visionRange + 20);
+                        logMessage(`Agent ${agent} becomes more cautious after reflecting on hazards`, 'warning');
+                    } else if (pattern.type == 1) {
+                        CognitiveState.get(agent).curiosity = Math.min(100, CognitiveState.get(agent).curiosity + 10);
+                        logMessage(`Agent ${agent} grows more curious after reflecting on resources`, 'success');
+                    }
                 }
 
                 if (drift.past.length > 0 && Math.random() < 0.3) {
@@ -1083,6 +1166,7 @@
                     const otherReality = Array.from(reality.realities.keys()).find(r => r !== reality.currentReality);
                     const knowledge = reality.realities.get(otherReality)[0];
                     logMessage(`Agent ${agent} senses cross-reality: In ${otherReality}, I knew ${knowledge.entityType === 2 ? 'danger' : 'calm'}.`, 'rift');
+                    this.memoryManager.transferKnowledge(agent, otherReality, reality.currentReality);
                 }
             }
 
@@ -1110,7 +1194,11 @@
             time: 0,
             lastTime: 0,
             systems: [],
-            realityWave: { active: false, timer: 500, realities: ['default_void', 'glitch_forest', 'digital_realm'] }
+            realityWave: { active: false, timer: 500, realities: [
+                { name: 'default_void', tint: 'rgba(10, 10, 26, 1)' },
+                { name: 'glitch_forest', tint: 'rgba(0, 50, 0, 0.8)' },
+                { name: 'digital_realm', tint: 'rgba(0, 0, 50, 0.8)' }
+            ]}
         };
 
         function addEntity() {
@@ -1130,7 +1218,7 @@
                         if (world.realityWave.active) {
                             const newReality = world.realityWave.realities[Math.floor(Math.random() * world.realityWave.realities.length)];
                             world.entities.forEach(agent => {
-                                if (CognitiveState.has(agent)) memoryManager.shiftReality(agent, newReality);
+                                if (CognitiveState.has(agent)) memoryManager.shiftReality(agent, newReality.name);
                             });
                         }
                     }
@@ -1164,23 +1252,36 @@
                             let targetY = Position.get(agent).y + (Math.random() * 40 - 20);
 
                             const detected = SensoryData.get(agent).entitiesDetected;
-                            for (const detectedEntity of detected) {
-                                const glitchType = detectedEntity.type;
-                                if (glitchType === 'rift' || glitchType === 'pulse') {
-                                    goalType = 2;
-                                    const dx = Position.get(agent).x - glitches[detectedEntity.entityId].pos.x;
-                                    const dy = Position.get(agent).y - glitches[detectedEntity.entityId].pos.y;
-                                    const dist = Math.sqrt(dx * dx + dy * dy);
-                                    if (dist > 0) {
-                                        targetX = Position.get(agent).x + (dx / dist) * 50;
-                                        targetY = Position.get(agent).y + (dy / dist) * 50;
-                                    }
-                                    break;
-                                } else if (glitchType === 'eruption' || glitchType === 'nexus') {
-                                    goalType = 1;
-                                    targetX = glitches[detectedEntity.entityId].pos.x;
-                                    targetY = glitches[detectedEntity.entityId].pos.y;
-                                    break;
+                            const semantic = memoryManager.getSemanticMemory(agent).patterns;
+                            const narrative = consciousnessManager.narratives.get(agent).influenceBehavior();
+                            const imagination = consciousnessManager.imaginations.get(agent);
+
+                            if (narrative && narrative.avoid) {
+                                goalType = 2;
+                                const dx = Position.get(agent).x - narrative.avoid.x;
+                                const dy = Position.get(agent).y - narrative.avoid.y;
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist > 0) {
+                                    targetX = Position.get(agent).x + (dx / dist) * 100;
+                                    targetY = Position.get(agent).y + (dy / dist) * 100;
+                                }
+                            } else {
+                                const hazardCluster = semantic.find(p => p.type == 2 && p.position);
+                                const resourceCluster = semantic.find(p => p.type == 1 && p.position);
+
+                                const options = [];
+                                if (hazardCluster) options.push({ action: 'avoid', target: hazardCluster.position });
+                                if (resourceCluster) options.push({ action: 'approach', target: resourceCluster.position });
+                                detected.forEach(d => {
+                                    const glitch = glitches[d.entityId];
+                                    options.push({ action: d.type === 'rift' || d.type === 'pulse' ? 'avoid' : 'approach', target: glitch.pos });
+                                });
+
+                                if (options.length > 0) {
+                                    const bestAction = imagination.getBestAction(options);
+                                    goalType = bestAction.action === 'avoid' ? 2 : 1;
+                                    targetX = bestAction.target.x;
+                                    targetY = bestAction.target.y;
                                 }
                             }
 
@@ -1233,11 +1334,9 @@
 
         const stats = { rift: 0, eruption: 0, nexus: 0, pulse: 0, total: 0, chaosLevel: 0 };
 
-        // Initialize HESMS
         const memoryManager = new MemoryManager(world);
         const consciousnessManager = new ConsciousnessManager(memoryManager);
 
-        // Create agents
         for (let i = 0; i < 3; i++) {
             const agent = addEntity();
             Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
@@ -1250,14 +1349,12 @@
         world.systems = createDefaultSystems();
         consciousnessManager.initialize();
 
-        // System time
         function updateSystemTime() {
             const now = new Date();
             document.getElementById('systemTime').textContent = now.toTimeString().split(' ')[0];
         }
         setInterval(updateSystemTime, 1000);
 
-        // Log function
         function logMessage(message, type = 'info') {
             const entry = document.createElement('div');
             entry.className = `log-entry`;
@@ -1267,7 +1364,6 @@
             if (logContainer.children.length > 20) logContainer.removeChild(logContainer.lastChild);
         }
 
-        // Update agent panel
         function updateAgentPanel() {
             agentContainer.innerHTML = '';
             world.entities.forEach(agent => {
@@ -1277,6 +1373,7 @@
                 const semantic = memoryManager.getSemanticMemory(agent).patterns;
                 const drift = memoryManager.getTemporalDrift(agent);
                 const reality = memoryManager.getCrossRealityKnowledge(agent);
+                const narrative = consciousnessManager.narratives.get(agent);
                 const entry = document.createElement('div');
                 entry.className = 'log-entry';
                 entry.innerHTML = `
@@ -1288,14 +1385,14 @@
                         Reality: ${reality.currentReality}
                     </span>
                     <div class="agent-info">
-                        Patterns: ${semantic.length} | Memories: ${drift.present.length + drift.past.length}
+                        Patterns: ${semantic.length} | Memories: ${drift.present.length + drift.past.length} | 
+                        Identity: ${narrative.getIdentity()}
                     </div>`;
                 agentContainer.appendChild(entry);
             });
         }
         setInterval(updateAgentPanel, 1000);
 
-        // Spawn glitch
         function spawnGlitch(type, x = Math.random() * canvas.width, y = Math.random() * canvas.height, narrativeContext = {}) {
             const glitch = new Glitch(type, x, y, narrativeContext);
             glitches.push(glitch);
@@ -1305,7 +1402,6 @@
             updateStats();
         }
 
-        // Update stats
         function updateStats() {
             stats.chaosLevel = Math.min(100, (glitches.reduce((sum, g) => sum + g.intensity, 0) / 10) * 100).toFixed(1);
             document.getElementById('riftCount').textContent = stats.rift;
@@ -1316,7 +1412,6 @@
             document.getElementById('chaosLevel').textContent = `${stats.chaosLevel}%`;
         }
 
-        // Control panel toggle
         const controlToggle = document.getElementById('controlToggle');
         const controlPanel = document.getElementById('controlPanel');
         controlToggle.addEventListener('click', () => {
@@ -1324,7 +1419,6 @@
             controlPanel.classList.toggle('active');
         });
 
-        // Tab switching
         const tabs = document.querySelectorAll('.panel-tab');
         const panels = document.querySelectorAll('.panel-content');
         tabs.forEach(tab => {
@@ -1336,13 +1430,11 @@
             });
         });
 
-        // Tool buttons
         document.getElementById('spawnRift').addEventListener('click', () => spawnGlitch('rift'));
         document.getElementById('spawnEruption').addEventListener('click', () => spawnGlitch('eruption'));
         document.getElementById('spawnNexus').addEventListener('click', () => spawnGlitch('nexus'));
         document.getElementById('spawnPulse').addEventListener('click', () => spawnGlitch('pulse'));
 
-        // Advanced tools
         const toggleAutoBtn = document.getElementById('toggleAuto');
         toggleAutoBtn.addEventListener('click', () => {
             autoSpawn = !autoSpawn;
@@ -1377,7 +1469,7 @@
                 if (Position.has(agent)) {
                     Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
                     Goals.set(agent, { primaryType: 0, targetX: 0, targetY: 0, completionPercentage: 0 });
-                    memoryManager.initializeAgent(agent); // Reset memory
+                    memoryManager.initializeAgent(agent);
                     ConsciousnessState.get(agent).selfAwarenessLevel = 0.1;
                 }
             });
@@ -1385,7 +1477,6 @@
             updateStats();
         });
 
-        // Quick actions
         document.getElementById('quickRift').addEventListener('click', () => spawnGlitch('rift'));
         document.getElementById('quickEruption').addEventListener('click', () => spawnGlitch('eruption'));
         document.getElementById('quickNexus').addEventListener('click', () => spawnGlitch('nexus'));
@@ -1397,7 +1488,6 @@
             logMessage(`Auto Spawn ${autoSpawn ? 'enabled' : 'disabled'}`, 'success');
         });
 
-        // Canvas click to spawn
         canvas.addEventListener('click', (e) => {
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -1406,23 +1496,20 @@
             spawnGlitch(types[Math.floor(Math.random() * types.length)], x, y);
         });
 
-        // Animation loop
         function animate() {
-            ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            const currentReality = world.realityWave.realities.find(r => r.name === memoryManager.getCrossRealityKnowledge(0).currentReality) || world.realityWave.realities[0];
+            ctx.fillStyle = world.realityWave.active ? `${currentReality.tint.slice(0, -2)}, 0.5)` : 'rgba(10, 10, 26, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             time += 0.02;
 
-            // Run ArgOS systems
             for (const system of world.systems) {
                 system(world);
             }
 
-            // Update consciousness and memory
             world.entities.forEach(agent => {
                 if (CognitiveState.has(agent)) {
                     consciousnessManager.updateConsciousness(agent);
 
-                    // Record glitch encounters as memories
                     const detected = SensoryData.get(agent).entitiesDetected;
                     detected.forEach(d => {
                         const glitch = glitches[d.entityId];
@@ -1438,12 +1525,10 @@
                 }
             });
 
-            // Auto spawn
             if (autoSpawn && Math.random() < 0.05) {
                 spawnGlitch(['rift', 'eruption', 'nexus', 'pulse'][Math.floor(Math.random() * 4)]);
             }
 
-            // Update and draw glitches
             glitches.forEach((glitch, i) => {
                 glitch.update(noise);
                 glitch.draw(ctx);
@@ -1479,12 +1564,12 @@
                 }
             });
 
-            // Draw agents
             world.entities.forEach(agent => {
                 if (!Position.has(agent) || !CognitiveState.has(agent)) return;
                 const pos = Position.get(agent);
                 const report = consciousnessManager.getConsciousnessReport(agent);
                 if (!report) return;
+                const narrative = consciousnessManager.narratives.get(agent);
 
                 // Draw agent
                 ctx.beginPath();
@@ -1505,51 +1590,105 @@
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist > 0) {
                         const lineLength = Math.min(dist, 15);
-                        ctx.lineTo(pos.x + (dx / dist) * lineLength, pos.y + (dy / dist) * lineLength);
-                    }
-                    ctx.stroke();
-                }
-
-                // Draw consciousness visualization
-                const integrationAura = 15 * (0.5 + report.integrationIndex * 0.5);
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y, integrationAura, 0, 2 * Math.PI);
-                ctx.fillStyle = `rgba(41, 128, 185, ${0.2 * report.integrationIndex})`;
-                ctx.fill();
-
-                if (report.isDreaming) {
-                    const dreamIntensity = Math.sin(Date.now() / 300) * 0.3 + 0.7;
-                    const waveCount = 3;
-                    for (let i = 0; i < waveCount; i++) {
-                        const wavePhase = (Date.now() / 1000 + i * 0.5) % (Math.PI * 2);
-                        const waveSize = 5 + i * 3;
-                        ctx.beginPath();
-                        ctx.arc(pos.x, pos.y, waveSize, 0, 2 * Math.PI);
-                        ctx.strokeStyle = `rgba(142, 68, 173, ${0.6 * dreamIntensity * (1 - i/waveCount)})`;
-                        ctx.lineWidth = 1 + Math.sin(wavePhase) * 0.5;
-                        ctx.stroke();
-                    }
-                }
-
-                // Label agent
-                ctx.font = '10px "Roboto Mono"';
-                ctx.fillStyle = report.isDreaming ? 'var(--primary)' : 'var(--success)';
-                ctx.textAlign = 'center';
-                ctx.fillText(`Agent ${agent}`, pos.x, pos.y - 10);
-            });
-
-            requestAnimationFrame(animate);
+                ctx.lineTo(pos.x + (dx / dist) * lineLength, pos.y + (dy / dist) * lineLength);
+            }
+            ctx.stroke();
         }
 
-        // Resize handler
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Integration aura
+        const integrationAura = 15 * (0.5 + report.integrationIndex * 0.5);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, integrationAura, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(41, 128, 185, ${0.2 * report.integrationIndex})`;
+        ctx.fill();
+
+        // Self-awareness nodes
+        const awarenessNodes = Math.min(5, Math.floor(report.selfAwareness * 5));
+        for (let i = 0; i < awarenessNodes; i++) {
+            const angle = (i / awarenessNodes) * 2 * Math.PI + time;
+            const nodeX = pos.x + Math.cos(angle) * 10;
+            const nodeY = pos.y + Math.sin(angle) * 10;
+            ctx.beginPath();
+            ctx.arc(nodeX, nodeY, 1 + report.selfAwareness * 2, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.7)';
+            ctx.fill();
+        }
+
+        // Dream state visualization
+        if (report.isDreaming) {
+            const dreamIntensity = Math.sin(Date.now() / 300) * 0.3 + 0.7;
+            const waveCount = 3;
+            for (let i = 0; i < waveCount; i++) {
+                const wavePhase = (Date.now() / 1000 + i * 0.5) % (Math.PI * 2);
+                const waveSize = 5 + i * 3;
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, waveSize, 0, 2 * Math.PI);
+                ctx.strokeStyle = `rgba(142, 68, 173, ${0.6 * dreamIntensity * (1 - i / waveCount)})`;
+                ctx.lineWidth = 1 + Math.sin(wavePhase) * 0.5;
+                ctx.stroke();
+            }
+        }
+
+        // Narrative connections
+        narrative.characters.forEach(char => {
+            if (char.position.distance(pos) < 100) {
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+                ctx.lineTo(char.position.x, char.position.y);
+                ctx.strokeStyle = 'rgba(255, 69, 0, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
         });
 
-        // Start the system
-        animate();
-        updateSystemTime();
-    </script>
+        // Thought bubble for reflection/imagination
+        if (ConsciousnessState.get(agent).reflectionCooldown > 80) {
+            ctx.beginPath();
+            ctx.arc(pos.x + 15, pos.y - 15, 8, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(pos.x + 12, pos.y - 5, 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        // Future predictions
+        const drift = memoryManager.getTemporalDrift(agent);
+        drift.future.forEach(f => {
+            if (world.time < f.timestamp + 50) {
+                ctx.beginPath();
+                ctx.arc(f.position.x, f.position.y, 5, 0, 2 * Math.PI);
+                ctx.strokeStyle = 'rgba(0, 206, 209, 0.5)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        });
+
+        // Agent label
+        ctx.font = '10px "Roboto Mono"';
+        ctx.fillStyle = report.isDreaming ? 'var(--primary)' : 'var(--success)';
+        ctx.textAlign = 'center';
+        ctx.fillText(`Agent ${agent}`, pos.x, pos.y - 15);
+    });
+
+    // Reality shift effect
+    if (world.realityWave.active && world.realityWave.timer > 490) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    requestAnimationFrame(animate);
+}
+
+// Resize handler
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Start the system
+animate();
+updateSystemTime();
+</script>
 </body>
 </html>
