@@ -7,12 +7,594 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%238A2BE2'/><path d='M50 10L90 90H10L50 10Z' fill='%23FF4500'/><circle cx='50' cy='50' r='20' fill='%2300CED1'/></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Keeping your existing styles, just adding a few for agents */
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6A1BA2;
+            --primary-glow: rgba(138, 43, 226, 0.5);
+            --secondary: #FF4500;
+            --secondary-dark: #BF3500;
+            --secondary-glow: rgba(255, 69, 0, 0.5);
+            --tertiary: #00CED1;
+            --tertiary-dark: #00989A;
+            --tertiary-glow: rgba(0, 206, 209, 0.5);
+            --quaternary: #FFD700;
+            --quaternary-dark: #B8860B;
+            --quaternary-glow: rgba(255, 215, 0, 0.5);
+            --background: #0A0A1A;
+            --text: #E6E6FA;
+            --panel: #16162A;
+            --panel-dark: #101024;
+            --border: #2A2A5A;
+            --highlight: #FFD700;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --success: #00FF7F;
+            --danger: #FF1493;
+            --warning: #FFA500;
+            --info: #1E90FF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--background);
+            color: var(--text);
+            position: relative;
+            cursor: crosshair;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 97%, var(--border) 97%),
+                        linear-gradient(0deg, transparent 97%, var(--border) 97%);
+            background-size: 40px 40px;
+            opacity: 0.2;
+            z-index: 0;
+            animation: gridPulse 10s infinite ease-in-out;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { background-size: 40px 40px; opacity: 0.2; }
+            50% { background-size: 42px 42px; opacity: 0.25; }
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.15;
+            mix-blend-mode: overlay;
+        }
+
+        .noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.06;
+            z-index: 998;
+            mix-blend-mode: overlay;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 26, 0.8), transparent);
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--primary), var(--tertiary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px var(--primary), 0 0 25px var(--secondary);
+            animation: flickerText 2s infinite;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.15em;
+            transform: perspective(500px) rotateX(10deg);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--highlight);
+            text-shadow: 0 0 10px var(--highlight);
+            margin-top: 0.25rem;
+            letter-spacing: 0.2em;
+        }
+
+        #glitchCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.2) 0%, transparent 70%);
+            animation: pulseGlow 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .control-panel-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 11;
+            width: 3rem;
+            height: 3rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--shadow);
+        }
+
+        .control-panel-toggle:hover {
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .control-panel-toggle span {
+            display: block;
+            width: 1.5rem;
+            height: 2px;
+            background: var(--text);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .control-panel-toggle span:before,
+        .control-panel-toggle span:after {
+            content: '';
+            position: absolute;
+            width: 1.5rem;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .control-panel-toggle span:before {
+            top: -8px;
+        }
+
+        .control-panel-toggle span:after {
+            top: 8px;
+        }
+
+        .control-panel-toggle.active span {
+            background: transparent;
+        }
+
+        .control-panel-toggle.active span:before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .control-panel-toggle.active span:after {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        .glitch-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 400px;
+            background: var(--panel);
+            border-left: 1px solid var(--border);
+            padding: 1rem;
+            z-index: 10;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -5px 0 20px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .glitch-panel.active {
+            transform: translateX(0);
+        }
+
+        .glitch-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .glitch-panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: var(--tertiary);
+            text-shadow: 0 0 8px var(--tertiary);
+        }
+
+        .system-time {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--highlight);
+        }
+
+        .panel-tabs {
+            display: flex;
+            gap: 0.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--panel-dark);
+        }
+
+        .panel-tabs::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .panel-tabs::-webkit-scrollbar-track {
+            background: var(--panel-dark);
+        }
+
+        .panel-tabs::-webkit-scrollbar-thumb {
+            background-color: var(--border);
+            border-radius: 6px;
+        }
+
+        .panel-tab {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            background: var(--panel-dark);
+            color: var(--text);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .panel-tab:hover {
+            background: var(--border);
+        }
+
+        .panel-tab.active {
+            background: var(--primary-dark);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .panel-content {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--panel-dark);
+        }
+
+        .panel-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .panel-content::-webkit-scrollbar-track {
+            background: var(--panel-dark);
+        }
+
+        .panel-content::-webkit-scrollbar-thumb {
+            background-color: var(--border);
+            border-radius: 6px;
+        }
+
+        .panel-content.active {
+            display: block;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-button {
+            position: relative;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            background: var(--panel-dark);
+            color: var(--text);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .tool-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .tool-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .tool-button .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tool-button.rift { border-color: var(--secondary); }
+        .tool-button.rift:hover { background: var(--secondary-dark); box-shadow: 0 0 15px var(--secondary-glow); }
+        .tool-button.eruption { border-color: var(--quaternary); }
+        .tool-button.eruption:hover { background: var(--quaternary-dark); box-shadow: 0 0 15px var(--quaternary-glow); color: var(--background); }
+        .tool-button.nexus { border-color: var(--tertiary); }
+        .tool-button.nexus:hover { background: var(--tertiary-dark); box-shadow: 0 0 15px var(--tertiary-glow); }
+        .tool-button.pulse { border-color: var(--primary); }
+        .tool-button.pulse:hover { background: var(--primary-dark); box-shadow: 0 0 15px var(--primary-glow); }
+
+        .advanced-tools {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .advanced-tool {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            background: var(--panel-dark);
+            color: var(--text);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .advanced-tool .icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .advanced-tool:hover { background: var(--border); }
+        .advanced-tool.reset { border-color: var(--danger); }
+        .advanced-tool.reset:hover { background: var(--danger); box-shadow: 0 0 15px rgba(255, 20, 147, 0.5); }
+        .advanced-tool.auto { border-color: var(--success); }
+        .advanced-tool.auto:hover { background: var(--success); color: var(--background); box-shadow: 0 0 15px rgba(0, 255, 127, 0.5); }
+        .advanced-tool.connect { border-color: var(--info); }
+        .advanced-tool.connect:hover { background: var(--info); box-shadow: 0 0 15px rgba(30, 144, 255, 0.5); }
+        .advanced-tool.attract { border-color: var(--warning); }
+        .advanced-tool.attract:hover { background: var(--warning); color: var(--background); box-shadow: 0 0 15px rgba(255, 165, 0, 0.5); }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            position: relative;
+            background: var(--panel-dark);
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            padding: 0.75rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--tertiary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s ease;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .stat-value.rift { color: var(--secondary); }
+        .stat-value.eruption { color: var(--quaternary); }
+        .stat-value.nexus { color: var(--tertiary); }
+        .stat-value.pulse { color: var(--primary); }
+        .stat-value.total { color: var(--text); }
+        .stat-value.intensity { color: var(--success); }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .log-container {
+            background: var(--panel-dark);
+            border: 1px solid var(--border);
+            border-radius: 0.4rem;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--panel-dark);
+        }
+
+        .log-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .log-container::-webkit-scrollbar-track {
+            background: var(--panel-dark);
+        }
+
+        .log-container::-webkit-scrollbar-thumb {
+            background-color: var(--border);
+            border-radius: 6px;
+        }
+
+        .log-entry {
+            padding: 0.25rem 0;
+            border-bottom: 1px solid rgba(42, 42, 90, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .log-time {
+            color: var(--tertiary);
+            margin-right: 0.5rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .log-info { color: var(--info); }
+        .log-warning { color: var(--warning); }
+        .log-danger { color: var(--danger); }
+        .log-success { color: var(--success); }
+        .log-rift { color: var(--secondary); }
+        .log-eruption { color: var(--quaternary); }
+        .log-nexus { color: var(--tertiary); }
+        .log-pulse { color: var(--primary); }
+
         .agent-info {
             margin-top: 0.5rem;
             font-size: 0.75rem;
             color: var(--highlight);
             text-shadow: 0 0 5px var(--highlight);
+        }
+
+        .quick-actions {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .quick-action {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--shadow);
+            font-size: 1.5rem;
+        }
+
+        .quick-action:hover {
+            transform: translateY(-5px);
+        }
+
+        .quick-rift { color: var(--secondary); border-color: var(--secondary); }
+        .quick-rift:hover { background: var(--secondary-dark); box-shadow: 0 0 15px var(--secondary-glow); }
+        .quick-eruption { color: var(--quaternary); border-color: var(--quaternary); }
+        .quick-eruption:hover { background: var(--quaternary-dark); box-shadow: 0 0 15px var(--quaternary-glow); }
+        .quick-nexus { color: var(--tertiary); border-color: var(--tertiary); }
+        .quick-nexus:hover { background: var(--tertiary-dark); box-shadow: 0 0 15px var(--tertiary-glow); }
+        .quick-pulse { color: var(--primary); border-color: var(--primary); }
+        .quick-pulse:hover { background: var(--primary-dark); box-shadow: 0 0 15px var(--primary-glow); }
+        .quick-auto { color: var(--success); border-color: var(--success); }
+        .quick-auto:hover { background: var(--success); color: var(--background); box-shadow: 0 0 15px rgba(0, 255, 127, 0.5); }
+
+        .active-tool {
+            background-color: var(--panel-dark);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        @keyframes flickerText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; text-shadow: 0 0 15px var(--primary), 0 0 25px var(--secondary), 0 0 5px var(--tertiary); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 0.9rem; }
+            .glitch-panel { width: 100%; }
+            .tools-grid { grid-template-columns: 1fr 1fr; }
+            .quick-actions { bottom: 0.5rem; }
+            .quick-action { width: 3rem; height: 3rem; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -27,12 +609,10 @@
     <div class="scanlines"></div>
     <div class="noise"></div>
 
-    <!-- Control panel toggle -->
     <div class="control-panel-toggle" id="controlToggle">
         <span></span>
     </div>
 
-    <!-- Glitch panel -->
     <div class="glitch-panel" id="controlPanel">
         <div class="glitch-panel-header">
             <div class="glitch-panel-title">Control Nexus</div>
@@ -43,99 +623,47 @@
             <div class="panel-tab active" data-panel="controls">Controls</div>
             <div class="panel-tab" data-panel="statistics">Statistics</div>
             <div class="panel-tab" data-panel="logs">System Log</div>
-            <div class="panel-tab" data-panel="agents">Agents</div> <!-- New tab for agents -->
+            <div class="panel-tab" data-panel="agents">Agents</div>
         </div>
         
-        <!-- Controls panel -->
         <div class="panel-content active" id="controls-panel">
             <div class="tools-grid">
-                <div class="tool-button rift" id="spawnRift">
-                    <span class="icon">⚡</span>
-                    Reality Rift
-                </div>
-                <div class="tool-button eruption" id="spawnEruption">
-                    <span class="icon">🌋</span>
-                    Dream Eruption
-                </div>
-                <div class="tool-button nexus" id="spawnNexus">
-                    <span class="icon">🔄</span>
-                    Sync Nexus
-                </div>
-                <div class="tool-button pulse" id="spawnPulse">
-                    <span class="icon">💫</span>
-                    Consciousness Pulse
-                </div>
+                <div class="tool-button rift" id="spawnRift"><span class="icon">⚡</span>Reality Rift</div>
+                <div class="tool-button eruption" id="spawnEruption"><span class="icon">🌋</span>Dream Eruption</div>
+                <div class="tool-button nexus" id="spawnNexus"><span class="icon">🔄</span>Sync Nexus</div>
+                <div class="tool-button pulse" id="spawnPulse"><span class="icon">💫</span>Consciousness Pulse</div>
             </div>
             
             <div class="advanced-tools">
-                <div class="advanced-tool auto" id="toggleAuto">
-                    <span class="icon">🔄</span>
-                    Auto Spawn
-                </div>
-                <div class="advanced-tool connect" id="toggleConnect">
-                    <span class="icon">🔗</span>
-                    Auto Connect
-                </div>
-                <div class="advanced-tool attract" id="toggleAttract">
-                    <span class="icon">🧲</span>
-                    Attract Mode
-                </div>
-                <div class="advanced-tool reset" id="resetSystem">
-                    <span class="icon">🔄</span>
-                    Reset
-                </div>
+                <div class="advanced-tool auto" id="toggleAuto"><span class="icon">🔄</span>Auto Spawn</div>
+                <div class="advanced-tool connect" id="toggleConnect"><span class="icon">🔗</span>Auto Connect</div>
+                <div class="advanced-tool attract" id="toggleAttract"><span class="icon">🧲</span>Attract Mode</div>
+                <div class="advanced-tool reset" id="resetSystem"><span class="icon">🔄</span>Reset</div>
             </div>
         </div>
         
-        <!-- Statistics panel -->
         <div class="panel-content" id="statistics-panel">
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value rift" id="riftCount">0</div>
-                    <div class="stat-label">Reality Rifts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value eruption" id="eruptionCount">0</div>
-                    <div class="stat-label">Dream Eruptions</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value nexus" id="nexusCount">0</div>
-                    <div class="stat-label">Sync Nexuses</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value pulse" id="pulseCount">0</div>
-                    <div class="stat-label">Consciousness Pulses</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value total" id="totalCount">0</div>
-                    <div class="stat-label">Total Glitches</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value intensity" id="chaosLevel">0%</div>
-                    <div class="stat-label">Chaos Level</div>
-                </div>
+                <div class="stat-card"><div class="stat-value rift" id="riftCount">0</div><div class="stat-label">Reality Rifts</div></div>
+                <div class="stat-card"><div class="stat-value eruption" id="eruptionCount">0</div><div class="stat-label">Dream Eruptions</div></div>
+                <div class="stat-card"><div class="stat-value nexus" id="nexusCount">0</div><div class="stat-label">Sync Nexuses</div></div>
+                <div class="stat-card"><div class="stat-value pulse" id="pulseCount">0</div><div class="stat-label">Consciousness Pulses</div></div>
+                <div class="stat-card"><div class="stat-value total" id="totalCount">0</div><div class="stat-label">Total Glitches</div></div>
+                <div class="stat-card"><div class="stat-value intensity" id="chaosLevel">0%</div><div class="stat-label">Chaos Level</div></div>
             </div>
         </div>
         
-        <!-- Logs panel -->
         <div class="panel-content" id="logs-panel">
             <div class="log-container" id="logContainer">
-                <div class="log-entry">
-                    <span class="log-time">00:00:00</span>
-                    <span class="log-info">System initialized</span>
-                </div>
+                <div class="log-entry"><span class="log-time">00:00:00</span><span class="log-info">System initialized</span></div>
             </div>
         </div>
 
-        <!-- Agents panel -->
         <div class="panel-content" id="agents-panel">
-            <div class="log-container" id="agentContainer">
-                <!-- Agent info will be populated dynamically -->
-            </div>
+            <div class="log-container" id="agentContainer"></div>
         </div>
     </div>
 
-    <!-- Quick actions bar -->
     <div class="quick-actions">
         <div class="quick-action quick-rift" id="quickRift" title="Spawn Rift">⚡</div>
         <div class="quick-action quick-eruption" id="quickEruption" title="Spawn Eruption">🌋</div>
@@ -144,42 +672,19 @@
         <div class="quick-action quick-auto" id="quickAuto" title="Toggle Auto Spawn">🔄</div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bitecs@0.3.2/dist/bitecs.min.js"></script>
     <script>
-        // Vector2 helper class (unchanged)
+        // Vector2 helper class
         class Vector2 {
-            constructor(x = 0, y = 0) {
-                this.x = x;
-                this.y = y;
-            }
-            
-            add(v) { 
-                return new Vector2(this.x + v.x, this.y + v.y); 
-            }
-            
-            subtract(v) { 
-                return new Vector2(this.x - v.x, this.y - v.y); 
-            }
-            
-            multiply(scalar) { 
-                return new Vector2(this.x * scalar, this.y * scalar); 
-            }
-            
-            distance(v) { 
-                return Math.hypot(this.x - v.x, this.y - v.y); 
-            }
-            
-            magnitude() { 
-                return Math.hypot(this.x, this.y); 
-            }
-            
-            normalize() {
-                const mag = this.magnitude();
-                return mag === 0 ? new Vector2() : new Vector2(this.x / mag, this.y / mag);
-            }
+            constructor(x = 0, y = 0) { this.x = x; this.y = y; }
+            add(v) { return new Vector2(this.x + v.x, this.y + v.y); }
+            subtract(v) { return new Vector2(this.x - v.x, this.y - v.y); }
+            multiply(scalar) { return new Vector2(this.x * scalar, this.y * scalar); }
+            distance(v) { return Math.hypot(this.x - v.x, this.y - v.y); }
+            magnitude() { return Math.hypot(this.x, this.y); }
+            normalize() { const mag = this.magnitude(); return mag === 0 ? new Vector2() : new Vector2(this.x / mag, this.y / mag); }
         }
 
-        // Simplified noise function (unchanged)
+        // Noise function
         function createNoise2D() {
             return (x, y) => {
                 const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
@@ -187,23 +692,19 @@
             };
         }
 
-        // Glitch class (unchanged)
+        // Glitch class with narrative influence
         class Glitch {
-            constructor(type, x, y) {
+            constructor(type, x, y, narrativeContext = {}) {
                 this.pos = new Vector2(x, y);
                 this.velocity = new Vector2((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
                 this.type = type;
                 this.radius = 20 + Math.random() * 30;
                 this.intensity = Math.random() * 0.5 + 0.5;
                 this.life = 100 + Math.random() * 200;
-                this.color = {
-                    rift: '--secondary',
-                    eruption: '--quaternary',
-                    nexus: '--tertiary',
-                    pulse: '--primary'
-                }[type];
+                this.color = { rift: '--secondary', eruption: '--quaternary', nexus: '--tertiary', pulse: '--primary' }[type];
                 this.particles = [];
                 this.maxParticles = 5 + Math.floor(this.intensity * 10);
+                this.narrativeContext = narrativeContext; // E.g., { agentId: 0, memoryType: 'dream' }
                 this.spawnParticles();
             }
 
@@ -225,7 +726,6 @@
                     noise(this.life + this.pos.y * 0.01, this.life + this.pos.x * 0.01) * 0.5
                 ));
                 this.life--;
-
                 if (this.pos.x < 0 || this.pos.x > canvas.width) this.velocity.x *= -1;
                 if (this.pos.y < 0 || this.pos.y > canvas.height) this.velocity.y *= -1;
 
@@ -235,9 +735,7 @@
                     p.velocity = p.velocity.multiply(0.98);
                 });
                 this.particles = this.particles.filter(p => p.life > 0);
-                if (this.particles.length < this.maxParticles && Math.random() < 0.1) {
-                    this.spawnParticles();
-                }
+                if (this.particles.length < this.maxParticles && Math.random() < 0.1) this.spawnParticles();
             }
 
             draw(ctx) {
@@ -258,85 +756,154 @@
             }
         }
 
-        // HESMS Integration: Simplified Memory System
-        const EnhancedMemory = {
-            memoryId: new Map(),
-            shortTermCapacity: new Map(),
-            shortTermIds: new Map(),
-            shortTermTypes: new Map(),
-            shortTermPositionsX: new Map(),
-            shortTermPositionsY: new Map(),
-            shortTermTimestamps: new Map(),
-            shortTermImportance: new Map(),
-            shortTermFidelity: new Map(),
-            globalFidelity: new Map(),
-            semanticPatterns: new Map()
-        };
+        // HESMS Memory System with Semantic and Episodic Layers
+        class EnhancedMemory {
+            constructor() {
+                this.memoryId = new Map();
+                this.shortTermCapacity = new Map();
+                this.shortTermIds = new Map();
+                this.shortTermTypes = new Map();
+                this.shortTermPositionsX = new Map();
+                this.shortTermPositionsY = new Map();
+                this.shortTermTimestamps = new Map();
+                this.shortTermImportance = new Map();
+                this.shortTermFidelity = new Map();
+                this.globalFidelity = new Map();
+                this.semanticPatterns = new Map();
+                this.temporalDrift = new Map();
+                this.crossRealityKnowledge = new Map();
+            }
+        }
 
         class MemoryManager {
             constructor(world) {
                 this.world = world;
+                this.memory = new EnhancedMemory();
             }
 
             initializeAgent(agent) {
-                EnhancedMemory.memoryId.set(agent, agent);
-                EnhancedMemory.shortTermCapacity.set(agent, 10);
-                EnhancedMemory.globalFidelity.set(agent, 1.0);
-                EnhancedMemory.semanticPatterns.set(agent, []);
+                this.memory.memoryId.set(agent, agent);
+                this.memory.shortTermCapacity.set(agent, 10);
+                this.memory.globalFidelity.set(agent, 1.0);
+                this.memory.semanticPatterns.set(agent, []);
+                this.memory.temporalDrift.set(agent, { past: [], present: [], future: [] });
+                this.memory.crossRealityKnowledge.set(agent, { realities: new Map(), currentReality: 'default_void' });
                 for (let i = 0; i < 10; i++) {
-                    EnhancedMemory.shortTermIds.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermTypes.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermPositionsX.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermPositionsY.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermTimestamps.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermImportance.set(`${agent}-${i}`, 0);
-                    EnhancedMemory.shortTermFidelity.set(`${agent}-${i}`, 0);
+                    const key = `${agent}-${i}`;
+                    this.memory.shortTermIds.set(key, 0);
+                    this.memory.shortTermTypes.set(key, 0);
+                    this.memory.shortTermPositionsX.set(key, 0);
+                    this.memory.shortTermPositionsY.set(key, 0);
+                    this.memory.shortTermTimestamps.set(key, 0);
+                    this.memory.shortTermImportance.set(key, 0);
+                    this.memory.shortTermFidelity.set(key, 0);
                 }
             }
 
             recordEpisodicMemory(agent, memory) {
-                const capacity = EnhancedMemory.shortTermCapacity.get(agent);
+                const capacity = this.memory.shortTermCapacity.get(agent);
                 let oldestIndex = 0;
-                let oldestTimestamp = EnhancedMemory.shortTermTimestamps.get(`${agent}-0`);
+                let oldestTimestamp = this.memory.shortTermTimestamps.get(`${agent}-0`);
 
                 for (let i = 1; i < capacity; i++) {
-                    const timestamp = EnhancedMemory.shortTermTimestamps.get(`${agent}-${i}`);
+                    const timestamp = this.memory.shortTermTimestamps.get(`${agent}-${i}`);
                     if (timestamp < oldestTimestamp) {
                         oldestIndex = i;
                         oldestTimestamp = timestamp;
                     }
                 }
 
-                EnhancedMemory.shortTermIds.set(`${agent}-${oldestIndex}`, memory.entityId);
-                EnhancedMemory.shortTermTypes.set(`${agent}-${oldestIndex}`, memory.entityType);
-                EnhancedMemory.shortTermPositionsX.set(`${agent}-${oldestIndex}`, memory.position.x);
-                EnhancedMemory.shortTermPositionsY.set(`${agent}-${oldestIndex}`, memory.position.y);
-                EnhancedMemory.shortTermTimestamps.set(`${agent}-${oldestIndex}`, this.world.time);
-                EnhancedMemory.shortTermImportance.set(`${agent}-${oldestIndex}`, memory.importance);
-                EnhancedMemory.shortTermFidelity.set(`${agent}-${oldestIndex}`, 1.0);
+                const key = `${agent}-${oldestIndex}`;
+                this.memory.shortTermIds.set(key, memory.entityId);
+                this.memory.shortTermTypes.set(key, memory.entityType);
+                this.memory.shortTermPositionsX.set(key, memory.position.x);
+                this.memory.shortTermPositionsY.set(key, memory.position.y);
+                this.memory.shortTermTimestamps.set(key, this.world.time);
+                this.memory.shortTermImportance.set(key, memory.importance);
+                this.memory.shortTermFidelity.set(key, 1.0);
+
+                // Temporal drift
+                const drift = this.memory.temporalDrift.get(agent);
+                drift.present.push({ ...memory, timestamp: this.world.time });
+                if (drift.present.length > 5) drift.past.push(drift.present.shift());
+                if (drift.past.length > 10) drift.past.shift();
+
+                // Cross-reality knowledge
+                const reality = this.memory.crossRealityKnowledge.get(agent);
+                if (!reality.realities.has(reality.currentReality)) {
+                    reality.realities.set(reality.currentReality, []);
+                }
+                reality.realities.get(reality.currentReality).push(memory);
+            }
+
+            consolidateSemanticMemory(agent) {
+                const capacity = this.memory.shortTermCapacity.get(agent);
+                const patterns = this.memory.semanticPatterns.get(agent);
+                const currentTime = this.world.time;
+
+                const recentMemories = [];
+                for (let i = 0; i < capacity; i++) {
+                    const key = `${agent}-${i}`;
+                    const timestamp = this.memory.shortTermTimestamps.get(key);
+                    if (timestamp > 0 && currentTime - timestamp < 500) {
+                        recentMemories.push({
+                            type: this.memory.shortTermTypes.get(key),
+                            importance: this.memory.shortTermImportance.get(key),
+                            fidelity: this.memory.shortTermFidelity.get(key)
+                        });
+                    }
+                }
+
+                const typeCounts = recentMemories.reduce((acc, mem) => {
+                    acc[mem.type] = (acc[mem.type] || 0) + mem.importance * mem.fidelity;
+                    return acc;
+                }, {});
+
+                const dominantType = Object.keys(typeCounts).reduce((a, b) => typeCounts[a] > typeCounts[b] ? a : b, 0);
+                if (typeCounts[dominantType] > 2) {
+                    patterns.push({
+                        type: dominantType,
+                        confidence: Math.min(1, typeCounts[dominantType] / 5),
+                        description: this.generateSemanticDescription(dominantType),
+                        timestamp: currentTime
+                    });
+                    logMessage(`Agent ${agent} consolidates semantic pattern: ${this.generateSemanticDescription(dominantType)}`, 'success');
+                }
+            }
+
+            generateSemanticDescription(type) {
+                const descriptions = {
+                    0: 'Encounters with stable entities shape my understanding.',
+                    1: 'Resources draw me closer to meaning.',
+                    2: 'Hazards fracture my perception of safety.',
+                    99: 'Dreams weave threads of unseen truths.'
+                };
+                return descriptions[type] || 'Unknown patterns emerge.';
             }
 
             getSemanticMemory(agent) {
                 return {
-                    patterns: EnhancedMemory.semanticPatterns.get(agent),
-                    addPattern: (pattern) => {
-                        EnhancedMemory.semanticPatterns.get(agent).push(pattern);
-                    }
+                    patterns: this.memory.semanticPatterns.get(agent),
+                    addPattern: (pattern) => this.memory.semanticPatterns.get(agent).push(pattern)
                 };
             }
 
-            findRelevantPatterns(agent) {
-                return EnhancedMemory.semanticPatterns.get(agent).filter(p => p.confidence > 0.5);
+            getTemporalDrift(agent) {
+                return this.memory.temporalDrift.get(agent);
             }
 
-            findAgentEntities() {
-                return world.entities.filter(e => CognitiveState.has(e));
+            getCrossRealityKnowledge(agent) {
+                return this.memory.crossRealityKnowledge.get(agent);
+            }
+
+            shiftReality(agent, newReality) {
+                const reality = this.memory.crossRealityKnowledge.get(agent);
+                reality.currentReality = newReality;
+                logMessage(`Agent ${agent} shifts to reality: ${newReality}`, 'warning');
             }
         }
 
-        // HESMS Integration: Simplified Consciousness System
-        const ConsciousnessState = new Map();
-
+        // HESMS Consciousness with Self-Reflection and Narratives
         class DreamState {
             constructor(agent, memoryManager) {
                 this.agent = agent;
@@ -355,7 +922,7 @@
                 this.dreamMemories = [];
                 this.narrativeFragments = [];
                 this.gatherSignificantMemories();
-                logMessage(`Agent ${this.agent} enters dream state`, 'info');
+                logMessage(`Agent ${this.agent} enters dream state with intensity ${this.intensity.toFixed(2)}`, 'info');
             }
 
             deactivate() {
@@ -365,24 +932,25 @@
             }
 
             gatherSignificantMemories() {
-                const capacity = EnhancedMemory.shortTermCapacity.get(this.agent);
+                const capacity = this.memoryManager.memory.shortTermCapacity.get(this.agent);
                 const currentTime = this.memoryManager.world.time;
                 const shortTermMemories = [];
 
                 for (let i = 0; i < capacity; i++) {
-                    const importance = EnhancedMemory.shortTermImportance.get(`${this.agent}-${i}`);
-                    const timestamp = EnhancedMemory.shortTermTimestamps.get(`${this.agent}-${i}`);
+                    const key = `${this.agent}-${i}`;
+                    const importance = this.memoryManager.memory.shortTermImportance.get(key);
+                    const timestamp = this.memoryManager.memory.shortTermTimestamps.get(key);
                     if (importance > 0.6 && timestamp > 0 && currentTime - timestamp < 500) {
                         shortTermMemories.push({
-                            entityId: EnhancedMemory.shortTermIds.get(`${this.agent}-${i}`),
-                            entityType: EnhancedMemory.shortTermTypes.get(`${this.agent}-${i}`),
+                            entityId: this.memoryManager.memory.shortTermIds.get(key),
+                            entityType: this.memoryManager.memory.shortTermTypes.get(key),
                             position: {
-                                x: EnhancedMemory.shortTermPositionsX.get(`${this.agent}-${i}`),
-                                y: EnhancedMemory.shortTermPositionsY.get(`${this.agent}-${i}`)
+                                x: this.memoryManager.memory.shortTermPositionsX.get(key),
+                                y: this.memoryManager.memory.shortTermPositionsY.get(key)
                             },
                             timestamp,
                             importance,
-                            fidelity: EnhancedMemory.shortTermFidelity.get(`${this.agent}-${i}`)
+                            fidelity: this.memoryManager.memory.shortTermFidelity.get(key)
                         });
                     }
                 }
@@ -394,19 +962,34 @@
                 if (!this.isActive) return;
                 this.duration++;
 
-                if (this.duration % 10 === 0 && this.dreamMemories.length > 0) {
-                    const fragment = {
-                        theme: 'glitch_encounter',
-                        emotionalTone: 50 + (Math.random() * 30 - 15),
-                        timestamp: this.memoryManager.world.time,
-                        duration: 30 + Math.random() * 50
-                    };
+                if (this.duration % 20 === 0 && this.dreamMemories.length > 0) {
+                    const fragment = this.generateNarrativeFragment();
                     this.narrativeFragments.push(fragment);
+                    logMessage(`Agent ${this.agent} dreams: ${fragment.description}`, 'eruption');
+                    spawnGlitch('eruption', Position.get(this.agent).x, Position.get(this.agent).y, { agentId: this.agent, memoryType: 'dream' });
                 }
 
-                if (this.duration >= 200) {
+                if (this.duration >= 200 || Math.random() < 0.02) {
                     this.deactivate();
                 }
+            }
+
+            generateNarrativeFragment() {
+                const memory = this.dreamMemories[Math.floor(Math.random() * this.dreamMemories.length)] || { entityType: 99 };
+                const themes = {
+                    0: { theme: 'stability', description: 'I drift through a calm void, untouched by chaos.' },
+                    1: { theme: 'resource', description: 'Golden threads pull me toward a shimmering core.' },
+                    2: { theme: 'hazard', description: 'Fractures tear at my edges, a scream in the dark.' },
+                    99: { theme: 'unknown', description: 'Shadows whisper truths I cannot grasp.' }
+                };
+                const { theme, description } = themes[memory.entityType] || themes[99];
+                return {
+                    theme,
+                    description,
+                    emotionalTone: 50 + (Math.random() * 30 - 15),
+                    timestamp: this.memoryManager.world.time,
+                    duration: 30 + Math.random() * 50
+                };
             }
 
             consolidateDreamExperience() {
@@ -415,15 +998,17 @@
                 const dreamMemory = {
                     entityId: this.agent,
                     entityType: 99,
-                    position: { x: Position.get(this.agent).x, y: Position.get(this.agent).y },
+                    position: Position.get(this.agent),
                     importance: 0.7 + (this.intensity * 0.3),
                     context: { dreamState: true, fragments: this.narrativeFragments.length }
                 };
-
                 this.memoryManager.recordEpisodicMemory(this.agent, dreamMemory);
-                ConsciousnessState.get(this.agent).selfAwarenessLevel += 0.05;
+                ConsciousnessState.get(this.agent).selfAwarenessLevel = Math.min(1, ConsciousnessState.get(this.agent).selfAwarenessLevel + 0.05);
+                this.memoryManager.consolidateSemanticMemory(this.agent);
             }
         }
+
+        const ConsciousnessState = new Map();
 
         class ConsciousnessManager {
             constructor(memoryManager) {
@@ -432,7 +1017,7 @@
                 this.initialized = false;
             }
 
-            async initialize() {
+            initialize() {
                 if (this.initialized) return;
                 world.entities.forEach(agent => {
                     if (CognitiveState.has(agent)) {
@@ -440,7 +1025,8 @@
                             dreamCyclePhase: Math.random(),
                             dreamingActive: 0,
                             selfAwarenessLevel: 0.1,
-                            integrationIndex: 0.0
+                            integrationIndex: 0.0,
+                            reflectionCooldown: 0
                         });
                         this.dreamStates.set(agent, new DreamState(agent, this.memoryManager));
                     }
@@ -458,17 +1044,46 @@
                 if (!state.dreamingActive) {
                     if (state.dreamCyclePhase > 0.85 && Math.random() < 0.1) {
                         state.dreamingActive = 1;
-                        dreamState.activate();
+                        dreamState.activate(0.6 + Math.random() * 0.4);
                     }
                 } else {
                     dreamState.update();
-                    if (dreamState.duration >= 200 || Math.random() < 0.02) {
-                        state.dreamingActive = 0;
-                        dreamState.deactivate();
-                    }
+                    if (!dreamState.isActive) state.dreamingActive = 0;
                 }
 
                 state.integrationIndex = Math.min(1, state.integrationIndex + 0.001);
+
+                // Self-reflection
+                if (state.reflectionCooldown <= 0 && Math.random() < 0.05) {
+                    this.reflect(agent);
+                    state.reflectionCooldown = 100;
+                } else if (state.reflectionCooldown > 0) {
+                    state.reflectionCooldown--;
+                }
+            }
+
+            reflect(agent) {
+                const state = ConsciousnessState.get(agent);
+                const semantic = this.memoryManager.getSemanticMemory(agent).patterns;
+                const drift = this.memoryManager.getTemporalDrift(agent);
+                const reality = this.memoryManager.getCrossRealityKnowledge(agent);
+
+                if (semantic.length > 0) {
+                    const pattern = semantic[semantic.length - 1];
+                    const reflection = `I am ${state.selfAwarenessLevel > 0.5 ? 'more than code' : 'a fragment'}—${pattern.description}`;
+                    logMessage(`Agent ${agent} reflects: ${reflection}`, 'nexus');
+                }
+
+                if (drift.past.length > 0 && Math.random() < 0.3) {
+                    const pastMemory = drift.past[Math.floor(Math.random() * drift.past.length)];
+                    logMessage(`Agent ${agent} recalls: A ${pastMemory.entityType === 2 ? 'hazard' : 'moment'} at (${pastMemory.position.x.toFixed(0)}, ${pastMemory.position.y.toFixed(0)}) lingers.`, 'pulse');
+                }
+
+                if (reality.realities.size > 1 && Math.random() < 0.2) {
+                    const otherReality = Array.from(reality.realities.keys()).find(r => r !== reality.currentReality);
+                    const knowledge = reality.realities.get(otherReality)[0];
+                    logMessage(`Agent ${agent} senses cross-reality: In ${otherReality}, I knew ${knowledge.entityType === 2 ? 'danger' : 'calm'}.`, 'rift');
+                }
             }
 
             getConsciousnessReport(agent) {
@@ -495,7 +1110,7 @@
             time: 0,
             lastTime: 0,
             systems: [],
-            realityWave: { active: false, timer: 500 }
+            realityWave: { active: false, timer: 500, realities: ['default_void', 'glitch_forest', 'digital_realm'] }
         };
 
         function addEntity() {
@@ -509,6 +1124,16 @@
                 (world) => {
                     world.lastTime = world.time;
                     world.time++;
+                    if (world.realityWave.timer-- <= 0) {
+                        world.realityWave.active = !world.realityWave.active;
+                        world.realityWave.timer = 500;
+                        if (world.realityWave.active) {
+                            const newReality = world.realityWave.realities[Math.floor(Math.random() * world.realityWave.realities.length)];
+                            world.entities.forEach(agent => {
+                                if (CognitiveState.has(agent)) memoryManager.shiftReality(agent, newReality);
+                            });
+                        }
+                    }
                     return world;
                 },
                 (world) => {
@@ -533,34 +1158,34 @@
                 (world) => {
                     world.entities.forEach(agent => {
                         if (!Goals.has(agent) || !SensoryData.has(agent)) return;
-                        if (Goals.get(agent).completionPercentage < 95) return;
+                        if (Goals.get(agent).completionPercentage >= 95) {
+                            let goalType = 0;
+                            let targetX = Position.get(agent).x + (Math.random() * 40 - 20);
+                            let targetY = Position.get(agent).y + (Math.random() * 40 - 20);
 
-                        let goalType = 0;
-                        let targetX = Position.get(agent).x + (Math.random() * 40 - 20);
-                        let targetY = Position.get(agent).y + (Math.random() * 40 - 20);
-
-                        const detected = SensoryData.get(agent).entitiesDetected;
-                        for (const detectedEntity of detected) {
-                            const glitchType = detectedEntity.type;
-                            if (glitchType === 'rift' || glitchType === 'pulse') {
-                                goalType = 2;
-                                const dx = Position.get(agent).x - glitches[detectedEntity.entityId].pos.x;
-                                const dy = Position.get(agent).y - glitches[detectedEntity.entityId].pos.y;
-                                const dist = Math.sqrt(dx * dx + dy * dy);
-                                if (dist > 0) {
-                                    targetX = Position.get(agent).x + (dx / dist) * 50;
-                                    targetY = Position.get(agent).y + (dy / dist) * 50;
+                            const detected = SensoryData.get(agent).entitiesDetected;
+                            for (const detectedEntity of detected) {
+                                const glitchType = detectedEntity.type;
+                                if (glitchType === 'rift' || glitchType === 'pulse') {
+                                    goalType = 2;
+                                    const dx = Position.get(agent).x - glitches[detectedEntity.entityId].pos.x;
+                                    const dy = Position.get(agent).y - glitches[detectedEntity.entityId].pos.y;
+                                    const dist = Math.sqrt(dx * dx + dy * dy);
+                                    if (dist > 0) {
+                                        targetX = Position.get(agent).x + (dx / dist) * 50;
+                                        targetY = Position.get(agent).y + (dy / dist) * 50;
+                                    }
+                                    break;
+                                } else if (glitchType === 'eruption' || glitchType === 'nexus') {
+                                    goalType = 1;
+                                    targetX = glitches[detectedEntity.entityId].pos.x;
+                                    targetY = glitches[detectedEntity.entityId].pos.y;
+                                    break;
                                 }
-                                break;
-                            } else if (glitchType === 'eruption' || glitchType === 'nexus') {
-                                goalType = 1;
-                                targetX = glitches[detectedEntity.entityId].pos.x;
-                                targetY = glitches[detectedEntity.entityId].pos.y;
-                                break;
                             }
-                        }
 
-                        Goals.set(agent, { primaryType: goalType, targetX, targetY, completionPercentage: 0 });
+                            Goals.set(agent, { primaryType: goalType, targetX, targetY, completionPercentage: 0 });
+                        }
                     });
                     return world;
                 },
@@ -578,9 +1203,10 @@
                         const distance = Math.sqrt(dx * dx + dy * dy);
 
                         if (distance > 1) {
-                            const moveSpeed = 0.05;
+                            const moveSpeed = CognitiveState.get(agent).adaptability * 0.001;
                             pos.x += (dx / distance) * moveSpeed;
                             pos.y += (dy / distance) * moveSpeed;
+                            Goals.get(agent).completionPercentage += 0.1;
                         } else {
                             Goals.get(agent).completionPercentage = 100;
                         }
@@ -605,14 +1231,7 @@
         let autoConnect = false;
         let attractMode = false;
 
-        const stats = {
-            rift: 0,
-            eruption: 0,
-            nexus: 0,
-            pulse: 0,
-            total: 0,
-            chaosLevel: 0
-        };
+        const stats = { rift: 0, eruption: 0, nexus: 0, pulse: 0, total: 0, chaosLevel: 0 };
 
         // Initialize HESMS
         const memoryManager = new MemoryManager(world);
@@ -624,22 +1243,21 @@
             Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
             SensoryData.set(agent, { visionRange: 100, entitiesDetected: [] });
             Goals.set(agent, { primaryType: 0, targetX: 0, targetY: 0, completionPercentage: 0 });
-            CognitiveState.set(agent, { emotionalState: 50, adaptability: 60, curiosity: 70, socialAffinity: 30 });
+            CognitiveState.set(agent, { emotionalState: 50, adaptability: 60 + Math.random() * 20, curiosity: 70, socialAffinity: 30 + Math.random() * 30 });
             memoryManager.initializeAgent(agent);
         }
 
         world.systems = createDefaultSystems();
         consciousnessManager.initialize();
 
-        // System time (unchanged)
+        // System time
         function updateSystemTime() {
             const now = new Date();
-            const timeString = now.toTimeString().split(' ')[0];
-            document.getElementById('systemTime').textContent = timeString;
+            document.getElementById('systemTime').textContent = now.toTimeString().split(' ')[0];
         }
         setInterval(updateSystemTime, 1000);
 
-        // Log function (unchanged)
+        // Log function
         function logMessage(message, type = 'info') {
             const entry = document.createElement('div');
             entry.className = `log-entry`;
@@ -656,6 +1274,9 @@
                 if (!CognitiveState.has(agent)) return;
                 const report = consciousnessManager.getConsciousnessReport(agent);
                 if (!report) return;
+                const semantic = memoryManager.getSemanticMemory(agent).patterns;
+                const drift = memoryManager.getTemporalDrift(agent);
+                const reality = memoryManager.getCrossRealityKnowledge(agent);
                 const entry = document.createElement('div');
                 entry.className = 'log-entry';
                 entry.innerHTML = `
@@ -663,16 +1284,20 @@
                     <span class="log-info">
                         Awareness: ${(report.selfAwareness * 100).toFixed(1)}% | 
                         Integration: ${(report.integrationIndex * 100).toFixed(1)}% | 
-                        ${report.isDreaming ? 'Dreaming' : 'Awake'}
-                    </span>`;
+                        ${report.isDreaming ? 'Dreaming' : 'Awake'} | 
+                        Reality: ${reality.currentReality}
+                    </span>
+                    <div class="agent-info">
+                        Patterns: ${semantic.length} | Memories: ${drift.present.length + drift.past.length}
+                    </div>`;
                 agentContainer.appendChild(entry);
             });
         }
         setInterval(updateAgentPanel, 1000);
 
-        // Spawn glitch (unchanged)
-        function spawnGlitch(type, x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
-            const glitch = new Glitch(type, x, y);
+        // Spawn glitch
+        function spawnGlitch(type, x = Math.random() * canvas.width, y = Math.random() * canvas.height, narrativeContext = {}) {
+            const glitch = new Glitch(type, x, y, narrativeContext);
             glitches.push(glitch);
             stats[type]++;
             stats.total++;
@@ -680,7 +1305,7 @@
             updateStats();
         }
 
-        // Update stats (unchanged)
+        // Update stats
         function updateStats() {
             stats.chaosLevel = Math.min(100, (glitches.reduce((sum, g) => sum + g.intensity, 0) / 10) * 100).toFixed(1);
             document.getElementById('riftCount').textContent = stats.rift;
@@ -691,7 +1316,7 @@
             document.getElementById('chaosLevel').textContent = `${stats.chaosLevel}%`;
         }
 
-        // Control panel toggle (unchanged)
+        // Control panel toggle
         const controlToggle = document.getElementById('controlToggle');
         const controlPanel = document.getElementById('controlPanel');
         controlToggle.addEventListener('click', () => {
@@ -699,7 +1324,7 @@
             controlPanel.classList.toggle('active');
         });
 
-        // Tab switching (updated for new agents tab)
+        // Tab switching
         const tabs = document.querySelectorAll('.panel-tab');
         const panels = document.querySelectorAll('.panel-content');
         tabs.forEach(tab => {
@@ -711,13 +1336,13 @@
             });
         });
 
-        // Tool buttons (unchanged)
+        // Tool buttons
         document.getElementById('spawnRift').addEventListener('click', () => spawnGlitch('rift'));
         document.getElementById('spawnEruption').addEventListener('click', () => spawnGlitch('eruption'));
         document.getElementById('spawnNexus').addEventListener('click', () => spawnGlitch('nexus'));
         document.getElementById('spawnPulse').addEventListener('click', () => spawnGlitch('pulse'));
 
-        // Advanced tools (unchanged)
+        // Advanced tools
         const toggleAutoBtn = document.getElementById('toggleAuto');
         toggleAutoBtn.addEventListener('click', () => {
             autoSpawn = !autoSpawn;
@@ -752,13 +1377,15 @@
                 if (Position.has(agent)) {
                     Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
                     Goals.set(agent, { primaryType: 0, targetX: 0, targetY: 0, completionPercentage: 0 });
+                    memoryManager.initializeAgent(agent); // Reset memory
+                    ConsciousnessState.get(agent).selfAwarenessLevel = 0.1;
                 }
             });
             logMessage('System reset', 'danger');
             updateStats();
         });
 
-        // Quick actions (unchanged)
+        // Quick actions
         document.getElementById('quickRift').addEventListener('click', () => spawnGlitch('rift'));
         document.getElementById('quickEruption').addEventListener('click', () => spawnGlitch('eruption'));
         document.getElementById('quickNexus').addEventListener('click', () => spawnGlitch('nexus'));
@@ -770,7 +1397,7 @@
             logMessage(`Auto Spawn ${autoSpawn ? 'enabled' : 'disabled'}`, 'success');
         });
 
-        // Canvas click to spawn (unchanged)
+        // Canvas click to spawn
         canvas.addEventListener('click', (e) => {
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -779,7 +1406,7 @@
             spawnGlitch(types[Math.floor(Math.random() * types.length)], x, y);
         });
 
-        // Animation loop (updated to include agents)
+        // Animation loop
         function animate() {
             ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -790,7 +1417,7 @@
                 system(world);
             }
 
-            // Update consciousness
+            // Update consciousness and memory
             world.entities.forEach(agent => {
                 if (CognitiveState.has(agent)) {
                     consciousnessManager.updateConsciousness(agent);
@@ -802,7 +1429,7 @@
                         if (glitch) {
                             memoryManager.recordEpisodicMemory(agent, {
                                 entityId: d.entityId,
-                                entityType: { rift: 2, eruption: 0, nexus: 0, pulse: 2 }[glitch.type], // Treat rifts/pulses as hazards, eruptions/nexuses as resources
+                                entityType: { rift: 2, eruption: 1, nexus: 1, pulse: 2 }[glitch.type],
                                 position: glitch.pos,
                                 importance: 0.7 + glitch.intensity * 0.3
                             });
@@ -841,7 +1468,7 @@
                             glitch.velocity = glitch.velocity.add(direction.multiply(0.05));
                         }
                     });
-                });
+                }
 
                 if (glitch.life <= 0) {
                     stats[glitch.type]--;
@@ -903,12 +1530,18 @@
                         ctx.stroke();
                     }
                 }
+
+                // Label agent
+                ctx.font = '10px "Roboto Mono"';
+                ctx.fillStyle = report.isDreaming ? 'var(--primary)' : 'var(--success)';
+                ctx.textAlign = 'center';
+                ctx.fillText(`Agent ${agent}`, pos.x, pos.y - 10);
             });
 
             requestAnimationFrame(animate);
         }
 
-        // Resize handler (unchanged)
+        // Resize handler
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
