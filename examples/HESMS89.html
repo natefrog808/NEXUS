@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS89: Glitch Nexus Unleashed with HESMS Agents</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%238A2BE2'/><path d='M50 10L90 90H10L50 10Z' fill='%23FF4500'/><circle cx='50' cy='50' r='20' fill='%2300CED1'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Keeping your existing styles, just adding a few for agents */
+        .agent-info {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--highlight);
+            text-shadow: 0 0 5px var(--highlight);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="glitch-text" data-text="NEXUS89">NEXUS89</h1>
+        <p class="subtitle">Glitch Nexus Unleashed with HESMS Agents</p>
+    </header>
+
+    <canvas id="glitchCanvas"></canvas>
+    <div class="overlay"></div>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <!-- Control panel toggle -->
+    <div class="control-panel-toggle" id="controlToggle">
+        <span></span>
+    </div>
+
+    <!-- Glitch panel -->
+    <div class="glitch-panel" id="controlPanel">
+        <div class="glitch-panel-header">
+            <div class="glitch-panel-title">Control Nexus</div>
+            <div class="system-time" id="systemTime">00:00:00</div>
+        </div>
+        
+        <div class="panel-tabs">
+            <div class="panel-tab active" data-panel="controls">Controls</div>
+            <div class="panel-tab" data-panel="statistics">Statistics</div>
+            <div class="panel-tab" data-panel="logs">System Log</div>
+            <div class="panel-tab" data-panel="agents">Agents</div> <!-- New tab for agents -->
+        </div>
+        
+        <!-- Controls panel -->
+        <div class="panel-content active" id="controls-panel">
+            <div class="tools-grid">
+                <div class="tool-button rift" id="spawnRift">
+                    <span class="icon">⚡</span>
+                    Reality Rift
+                </div>
+                <div class="tool-button eruption" id="spawnEruption">
+                    <span class="icon">🌋</span>
+                    Dream Eruption
+                </div>
+                <div class="tool-button nexus" id="spawnNexus">
+                    <span class="icon">🔄</span>
+                    Sync Nexus
+                </div>
+                <div class="tool-button pulse" id="spawnPulse">
+                    <span class="icon">💫</span>
+                    Consciousness Pulse
+                </div>
+            </div>
+            
+            <div class="advanced-tools">
+                <div class="advanced-tool auto" id="toggleAuto">
+                    <span class="icon">🔄</span>
+                    Auto Spawn
+                </div>
+                <div class="advanced-tool connect" id="toggleConnect">
+                    <span class="icon">🔗</span>
+                    Auto Connect
+                </div>
+                <div class="advanced-tool attract" id="toggleAttract">
+                    <span class="icon">🧲</span>
+                    Attract Mode
+                </div>
+                <div class="advanced-tool reset" id="resetSystem">
+                    <span class="icon">🔄</span>
+                    Reset
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics panel -->
+        <div class="panel-content" id="statistics-panel">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value rift" id="riftCount">0</div>
+                    <div class="stat-label">Reality Rifts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value eruption" id="eruptionCount">0</div>
+                    <div class="stat-label">Dream Eruptions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value nexus" id="nexusCount">0</div>
+                    <div class="stat-label">Sync Nexuses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value pulse" id="pulseCount">0</div>
+                    <div class="stat-label">Consciousness Pulses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value total" id="totalCount">0</div>
+                    <div class="stat-label">Total Glitches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value intensity" id="chaosLevel">0%</div>
+                    <div class="stat-label">Chaos Level</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logs panel -->
+        <div class="panel-content" id="logs-panel">
+            <div class="log-container" id="logContainer">
+                <div class="log-entry">
+                    <span class="log-time">00:00:00</span>
+                    <span class="log-info">System initialized</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents panel -->
+        <div class="panel-content" id="agents-panel">
+            <div class="log-container" id="agentContainer">
+                <!-- Agent info will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick actions bar -->
+    <div class="quick-actions">
+        <div class="quick-action quick-rift" id="quickRift" title="Spawn Rift">⚡</div>
+        <div class="quick-action quick-eruption" id="quickEruption" title="Spawn Eruption">🌋</div>
+        <div class="quick-action quick-nexus" id="quickNexus" title="Spawn Nexus">🔄</div>
+        <div class="quick-action quick-pulse" id="quickPulse" title="Spawn Pulse">💫</div>
+        <div class="quick-action quick-auto" id="quickAuto" title="Toggle Auto Spawn">🔄</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bitecs@0.3.2/dist/bitecs.min.js"></script>
+    <script>
+        // Vector2 helper class (unchanged)
+        class Vector2 {
+            constructor(x = 0, y = 0) {
+                this.x = x;
+                this.y = y;
+            }
+            
+            add(v) { 
+                return new Vector2(this.x + v.x, this.y + v.y); 
+            }
+            
+            subtract(v) { 
+                return new Vector2(this.x - v.x, this.y - v.y); 
+            }
+            
+            multiply(scalar) { 
+                return new Vector2(this.x * scalar, this.y * scalar); 
+            }
+            
+            distance(v) { 
+                return Math.hypot(this.x - v.x, this.y - v.y); 
+            }
+            
+            magnitude() { 
+                return Math.hypot(this.x, this.y); 
+            }
+            
+            normalize() {
+                const mag = this.magnitude();
+                return mag === 0 ? new Vector2() : new Vector2(this.x / mag, this.y / mag);
+            }
+        }
+
+        // Simplified noise function (unchanged)
+        function createNoise2D() {
+            return (x, y) => {
+                const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+                return (n - Math.floor(n)) * 2 - 1;
+            };
+        }
+
+        // Glitch class (unchanged)
+        class Glitch {
+            constructor(type, x, y) {
+                this.pos = new Vector2(x, y);
+                this.velocity = new Vector2((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+                this.type = type;
+                this.radius = 20 + Math.random() * 30;
+                this.intensity = Math.random() * 0.5 + 0.5;
+                this.life = 100 + Math.random() * 200;
+                this.color = {
+                    rift: '--secondary',
+                    eruption: '--quaternary',
+                    nexus: '--tertiary',
+                    pulse: '--primary'
+                }[type];
+                this.particles = [];
+                this.maxParticles = 5 + Math.floor(this.intensity * 10);
+                this.spawnParticles();
+            }
+
+            spawnParticles() {
+                for (let i = 0; i < this.maxParticles; i++) {
+                    this.particles.push({
+                        pos: new Vector2(this.pos.x, this.pos.y),
+                        velocity: new Vector2((Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3),
+                        life: 20 + Math.random() * 40,
+                        size: 2 + Math.random() * 3,
+                    });
+                }
+            }
+
+            update(noise) {
+                this.pos = this.pos.add(this.velocity.multiply(1 + noise(this.pos.x * 0.01, this.pos.y * 0.01)));
+                this.velocity = this.velocity.add(new Vector2(
+                    noise(this.life + this.pos.x * 0.01, this.life + this.pos.y * 0.01) * 0.5,
+                    noise(this.life + this.pos.y * 0.01, this.life + this.pos.x * 0.01) * 0.5
+                ));
+                this.life--;
+
+                if (this.pos.x < 0 || this.pos.x > canvas.width) this.velocity.x *= -1;
+                if (this.pos.y < 0 || this.pos.y > canvas.height) this.velocity.y *= -1;
+
+                this.particles.forEach(p => {
+                    p.pos = p.pos.add(p.velocity);
+                    p.life--;
+                    p.velocity = p.velocity.multiply(0.98);
+                });
+                this.particles = this.particles.filter(p => p.life > 0);
+                if (this.particles.length < this.maxParticles && Math.random() < 0.1) {
+                    this.spawnParticles();
+                }
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.pos.x, this.pos.y, this.radius * this.intensity, 0, Math.PI * 2);
+                ctx.fillStyle = `var(${this.color}${Math.floor(this.life / 3).toString(16)})`;
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = `var(${this.color})`;
+                ctx.stroke();
+
+                this.particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.pos.x, p.pos.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `var(${this.color}${Math.floor(p.life * 2).toString(16)})`;
+                    ctx.fill();
+                });
+            }
+        }
+
+        // HESMS Integration: Simplified Memory System
+        const EnhancedMemory = {
+            memoryId: new Map(),
+            shortTermCapacity: new Map(),
+            shortTermIds: new Map(),
+            shortTermTypes: new Map(),
+            shortTermPositionsX: new Map(),
+            shortTermPositionsY: new Map(),
+            shortTermTimestamps: new Map(),
+            shortTermImportance: new Map(),
+            shortTermFidelity: new Map(),
+            globalFidelity: new Map(),
+            semanticPatterns: new Map()
+        };
+
+        class MemoryManager {
+            constructor(world) {
+                this.world = world;
+            }
+
+            initializeAgent(agent) {
+                EnhancedMemory.memoryId.set(agent, agent);
+                EnhancedMemory.shortTermCapacity.set(agent, 10);
+                EnhancedMemory.globalFidelity.set(agent, 1.0);
+                EnhancedMemory.semanticPatterns.set(agent, []);
+                for (let i = 0; i < 10; i++) {
+                    EnhancedMemory.shortTermIds.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermTypes.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermPositionsX.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermPositionsY.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermTimestamps.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermImportance.set(`${agent}-${i}`, 0);
+                    EnhancedMemory.shortTermFidelity.set(`${agent}-${i}`, 0);
+                }
+            }
+
+            recordEpisodicMemory(agent, memory) {
+                const capacity = EnhancedMemory.shortTermCapacity.get(agent);
+                let oldestIndex = 0;
+                let oldestTimestamp = EnhancedMemory.shortTermTimestamps.get(`${agent}-0`);
+
+                for (let i = 1; i < capacity; i++) {
+                    const timestamp = EnhancedMemory.shortTermTimestamps.get(`${agent}-${i}`);
+                    if (timestamp < oldestTimestamp) {
+                        oldestIndex = i;
+                        oldestTimestamp = timestamp;
+                    }
+                }
+
+                EnhancedMemory.shortTermIds.set(`${agent}-${oldestIndex}`, memory.entityId);
+                EnhancedMemory.shortTermTypes.set(`${agent}-${oldestIndex}`, memory.entityType);
+                EnhancedMemory.shortTermPositionsX.set(`${agent}-${oldestIndex}`, memory.position.x);
+                EnhancedMemory.shortTermPositionsY.set(`${agent}-${oldestIndex}`, memory.position.y);
+                EnhancedMemory.shortTermTimestamps.set(`${agent}-${oldestIndex}`, this.world.time);
+                EnhancedMemory.shortTermImportance.set(`${agent}-${oldestIndex}`, memory.importance);
+                EnhancedMemory.shortTermFidelity.set(`${agent}-${oldestIndex}`, 1.0);
+            }
+
+            getSemanticMemory(agent) {
+                return {
+                    patterns: EnhancedMemory.semanticPatterns.get(agent),
+                    addPattern: (pattern) => {
+                        EnhancedMemory.semanticPatterns.get(agent).push(pattern);
+                    }
+                };
+            }
+
+            findRelevantPatterns(agent) {
+                return EnhancedMemory.semanticPatterns.get(agent).filter(p => p.confidence > 0.5);
+            }
+
+            findAgentEntities() {
+                return world.entities.filter(e => CognitiveState.has(e));
+            }
+        }
+
+        // HESMS Integration: Simplified Consciousness System
+        const ConsciousnessState = new Map();
+
+        class DreamState {
+            constructor(agent, memoryManager) {
+                this.agent = agent;
+                this.memoryManager = memoryManager;
+                this.dreamMemories = [];
+                this.narrativeFragments = [];
+                this.isActive = false;
+                this.intensity = 0;
+                this.duration = 0;
+            }
+
+            activate(intensity = 0.6) {
+                this.isActive = true;
+                this.intensity = Math.min(1, Math.max(0, intensity));
+                this.duration = 0;
+                this.dreamMemories = [];
+                this.narrativeFragments = [];
+                this.gatherSignificantMemories();
+                logMessage(`Agent ${this.agent} enters dream state`, 'info');
+            }
+
+            deactivate() {
+                this.isActive = false;
+                this.consolidateDreamExperience();
+                logMessage(`Agent ${this.agent} exits dream state`, 'info');
+            }
+
+            gatherSignificantMemories() {
+                const capacity = EnhancedMemory.shortTermCapacity.get(this.agent);
+                const currentTime = this.memoryManager.world.time;
+                const shortTermMemories = [];
+
+                for (let i = 0; i < capacity; i++) {
+                    const importance = EnhancedMemory.shortTermImportance.get(`${this.agent}-${i}`);
+                    const timestamp = EnhancedMemory.shortTermTimestamps.get(`${this.agent}-${i}`);
+                    if (importance > 0.6 && timestamp > 0 && currentTime - timestamp < 500) {
+                        shortTermMemories.push({
+                            entityId: EnhancedMemory.shortTermIds.get(`${this.agent}-${i}`),
+                            entityType: EnhancedMemory.shortTermTypes.get(`${this.agent}-${i}`),
+                            position: {
+                                x: EnhancedMemory.shortTermPositionsX.get(`${this.agent}-${i}`),
+                                y: EnhancedMemory.shortTermPositionsY.get(`${this.agent}-${i}`)
+                            },
+                            timestamp,
+                            importance,
+                            fidelity: EnhancedMemory.shortTermFidelity.get(`${this.agent}-${i}`)
+                        });
+                    }
+                }
+
+                this.dreamMemories = shortTermMemories.sort((a, b) => b.importance - a.importance);
+            }
+
+            update() {
+                if (!this.isActive) return;
+                this.duration++;
+
+                if (this.duration % 10 === 0 && this.dreamMemories.length > 0) {
+                    const fragment = {
+                        theme: 'glitch_encounter',
+                        emotionalTone: 50 + (Math.random() * 30 - 15),
+                        timestamp: this.memoryManager.world.time,
+                        duration: 30 + Math.random() * 50
+                    };
+                    this.narrativeFragments.push(fragment);
+                }
+
+                if (this.duration >= 200) {
+                    this.deactivate();
+                }
+            }
+
+            consolidateDreamExperience() {
+                if (this.narrativeFragments.length === 0) return;
+
+                const dreamMemory = {
+                    entityId: this.agent,
+                    entityType: 99,
+                    position: { x: Position.get(this.agent).x, y: Position.get(this.agent).y },
+                    importance: 0.7 + (this.intensity * 0.3),
+                    context: { dreamState: true, fragments: this.narrativeFragments.length }
+                };
+
+                this.memoryManager.recordEpisodicMemory(this.agent, dreamMemory);
+                ConsciousnessState.get(this.agent).selfAwarenessLevel += 0.05;
+            }
+        }
+
+        class ConsciousnessManager {
+            constructor(memoryManager) {
+                this.memoryManager = memoryManager;
+                this.dreamStates = new Map();
+                this.initialized = false;
+            }
+
+            async initialize() {
+                if (this.initialized) return;
+                world.entities.forEach(agent => {
+                    if (CognitiveState.has(agent)) {
+                        ConsciousnessState.set(agent, {
+                            dreamCyclePhase: Math.random(),
+                            dreamingActive: 0,
+                            selfAwarenessLevel: 0.1,
+                            integrationIndex: 0.0
+                        });
+                        this.dreamStates.set(agent, new DreamState(agent, this.memoryManager));
+                    }
+                });
+                this.initialized = true;
+            }
+
+            updateConsciousness(agent) {
+                const state = ConsciousnessState.get(agent);
+                if (!state) return;
+
+                const dreamState = this.dreamStates.get(agent);
+                state.dreamCyclePhase = (state.dreamCyclePhase + 0.00167) % 1;
+
+                if (!state.dreamingActive) {
+                    if (state.dreamCyclePhase > 0.85 && Math.random() < 0.1) {
+                        state.dreamingActive = 1;
+                        dreamState.activate();
+                    }
+                } else {
+                    dreamState.update();
+                    if (dreamState.duration >= 200 || Math.random() < 0.02) {
+                        state.dreamingActive = 0;
+                        dreamState.deactivate();
+                    }
+                }
+
+                state.integrationIndex = Math.min(1, state.integrationIndex + 0.001);
+            }
+
+            getConsciousnessReport(agent) {
+                const state = ConsciousnessState.get(agent);
+                if (!state) return null;
+                return {
+                    agent,
+                    selfAwareness: state.selfAwarenessLevel,
+                    integrationIndex: state.integrationIndex,
+                    isDreaming: state.dreamingActive > 0,
+                    dreamPhase: state.dreamCyclePhase
+                };
+            }
+        }
+
+        // ArgOS Framework Integration
+        const Position = new Map();
+        const SensoryData = new Map();
+        const Goals = new Map();
+        const CognitiveState = new Map();
+
+        const world = {
+            entities: [],
+            time: 0,
+            lastTime: 0,
+            systems: [],
+            realityWave: { active: false, timer: 500 }
+        };
+
+        function addEntity() {
+            const entity = world.entities.length;
+            world.entities.push(entity);
+            return entity;
+        }
+
+        function createDefaultSystems() {
+            return [
+                (world) => {
+                    world.lastTime = world.time;
+                    world.time++;
+                    return world;
+                },
+                (world) => {
+                    world.entities.forEach(agent => {
+                        if (!SensoryData.has(agent)) return;
+                        const pos = Position.get(agent);
+                        const range = SensoryData.get(agent).visionRange || 100;
+
+                        const detected = [];
+                        glitches.forEach((glitch, index) => {
+                            const distance = pos.distance(glitch.pos);
+                            if (distance <= range) {
+                                detected.push({ entityId: index, type: glitch.type, distance });
+                            }
+                        });
+
+                        detected.sort((a, b) => a.distance - b.distance);
+                        SensoryData.get(agent).entitiesDetected = detected.slice(0, 10);
+                    });
+                    return world;
+                },
+                (world) => {
+                    world.entities.forEach(agent => {
+                        if (!Goals.has(agent) || !SensoryData.has(agent)) return;
+                        if (Goals.get(agent).completionPercentage < 95) return;
+
+                        let goalType = 0;
+                        let targetX = Position.get(agent).x + (Math.random() * 40 - 20);
+                        let targetY = Position.get(agent).y + (Math.random() * 40 - 20);
+
+                        const detected = SensoryData.get(agent).entitiesDetected;
+                        for (const detectedEntity of detected) {
+                            const glitchType = detectedEntity.type;
+                            if (glitchType === 'rift' || glitchType === 'pulse') {
+                                goalType = 2;
+                                const dx = Position.get(agent).x - glitches[detectedEntity.entityId].pos.x;
+                                const dy = Position.get(agent).y - glitches[detectedEntity.entityId].pos.y;
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist > 0) {
+                                    targetX = Position.get(agent).x + (dx / dist) * 50;
+                                    targetY = Position.get(agent).y + (dy / dist) * 50;
+                                }
+                                break;
+                            } else if (glitchType === 'eruption' || glitchType === 'nexus') {
+                                goalType = 1;
+                                targetX = glitches[detectedEntity.entityId].pos.x;
+                                targetY = glitches[detectedEntity.entityId].pos.y;
+                                break;
+                            }
+                        }
+
+                        Goals.set(agent, { primaryType: goalType, targetX, targetY, completionPercentage: 0 });
+                    });
+                    return world;
+                },
+                (world) => {
+                    world.entities.forEach(agent => {
+                        if (!Position.has(agent) || !Goals.has(agent)) return;
+                        const pos = Position.get(agent);
+                        const targetX = Goals.get(agent).targetX;
+                        const targetY = Goals.get(agent).targetY;
+
+                        if (targetX === 0 && targetY === 0) return;
+
+                        const dx = targetX - pos.x;
+                        const dy = targetY - pos.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance > 1) {
+                            const moveSpeed = 0.05;
+                            pos.x += (dx / distance) * moveSpeed;
+                            pos.y += (dy / distance) * moveSpeed;
+                        } else {
+                            Goals.get(agent).completionPercentage = 100;
+                        }
+                    });
+                    return world;
+                }
+            ];
+        }
+
+        // System state
+        const canvas = document.getElementById('glitchCanvas');
+        const ctx = canvas.getContext('2d');
+        const logContainer = document.getElementById('logContainer');
+        const agentContainer = document.getElementById('agentContainer');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const noise = createNoise2D();
+        let time = 0;
+        const glitches = [];
+        let autoSpawn = false;
+        let autoConnect = false;
+        let attractMode = false;
+
+        const stats = {
+            rift: 0,
+            eruption: 0,
+            nexus: 0,
+            pulse: 0,
+            total: 0,
+            chaosLevel: 0
+        };
+
+        // Initialize HESMS
+        const memoryManager = new MemoryManager(world);
+        const consciousnessManager = new ConsciousnessManager(memoryManager);
+
+        // Create agents
+        for (let i = 0; i < 3; i++) {
+            const agent = addEntity();
+            Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
+            SensoryData.set(agent, { visionRange: 100, entitiesDetected: [] });
+            Goals.set(agent, { primaryType: 0, targetX: 0, targetY: 0, completionPercentage: 0 });
+            CognitiveState.set(agent, { emotionalState: 50, adaptability: 60, curiosity: 70, socialAffinity: 30 });
+            memoryManager.initializeAgent(agent);
+        }
+
+        world.systems = createDefaultSystems();
+        consciousnessManager.initialize();
+
+        // System time (unchanged)
+        function updateSystemTime() {
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            document.getElementById('systemTime').textContent = timeString;
+        }
+        setInterval(updateSystemTime, 1000);
+
+        // Log function (unchanged)
+        function logMessage(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry`;
+            const time = new Date().toTimeString().split(' ')[0];
+            entry.innerHTML = `<span class="log-time">${time}</span><span class="log-${type}">${message}</span>`;
+            logContainer.insertBefore(entry, logContainer.firstChild);
+            if (logContainer.children.length > 20) logContainer.removeChild(logContainer.lastChild);
+        }
+
+        // Update agent panel
+        function updateAgentPanel() {
+            agentContainer.innerHTML = '';
+            world.entities.forEach(agent => {
+                if (!CognitiveState.has(agent)) return;
+                const report = consciousnessManager.getConsciousnessReport(agent);
+                if (!report) return;
+                const entry = document.createElement('div');
+                entry.className = 'log-entry';
+                entry.innerHTML = `
+                    <span class="log-time">Agent ${agent}</span>
+                    <span class="log-info">
+                        Awareness: ${(report.selfAwareness * 100).toFixed(1)}% | 
+                        Integration: ${(report.integrationIndex * 100).toFixed(1)}% | 
+                        ${report.isDreaming ? 'Dreaming' : 'Awake'}
+                    </span>`;
+                agentContainer.appendChild(entry);
+            });
+        }
+        setInterval(updateAgentPanel, 1000);
+
+        // Spawn glitch (unchanged)
+        function spawnGlitch(type, x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
+            const glitch = new Glitch(type, x, y);
+            glitches.push(glitch);
+            stats[type]++;
+            stats.total++;
+            logMessage(`Spawned ${type.replace('_', ' ')} at (${Math.floor(x)}, ${Math.floor(y)})`, type);
+            updateStats();
+        }
+
+        // Update stats (unchanged)
+        function updateStats() {
+            stats.chaosLevel = Math.min(100, (glitches.reduce((sum, g) => sum + g.intensity, 0) / 10) * 100).toFixed(1);
+            document.getElementById('riftCount').textContent = stats.rift;
+            document.getElementById('eruptionCount').textContent = stats.eruption;
+            document.getElementById('nexusCount').textContent = stats.nexus;
+            document.getElementById('pulseCount').textContent = stats.pulse;
+            document.getElementById('totalCount').textContent = stats.total;
+            document.getElementById('chaosLevel').textContent = `${stats.chaosLevel}%`;
+        }
+
+        // Control panel toggle (unchanged)
+        const controlToggle = document.getElementById('controlToggle');
+        const controlPanel = document.getElementById('controlPanel');
+        controlToggle.addEventListener('click', () => {
+            controlToggle.classList.toggle('active');
+            controlPanel.classList.toggle('active');
+        });
+
+        // Tab switching (updated for new agents tab)
+        const tabs = document.querySelectorAll('.panel-tab');
+        const panels = document.querySelectorAll('.panel-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.panel}-panel`).classList.add('active');
+            });
+        });
+
+        // Tool buttons (unchanged)
+        document.getElementById('spawnRift').addEventListener('click', () => spawnGlitch('rift'));
+        document.getElementById('spawnEruption').addEventListener('click', () => spawnGlitch('eruption'));
+        document.getElementById('spawnNexus').addEventListener('click', () => spawnGlitch('nexus'));
+        document.getElementById('spawnPulse').addEventListener('click', () => spawnGlitch('pulse'));
+
+        // Advanced tools (unchanged)
+        const toggleAutoBtn = document.getElementById('toggleAuto');
+        toggleAutoBtn.addEventListener('click', () => {
+            autoSpawn = !autoSpawn;
+            toggleAutoBtn.classList.toggle('active-tool');
+            logMessage(`Auto Spawn ${autoSpawn ? 'enabled' : 'disabled'}`, 'success');
+        });
+
+        const toggleConnectBtn = document.getElementById('toggleConnect');
+        toggleConnectBtn.addEventListener('click', () => {
+            autoConnect = !autoConnect;
+            toggleConnectBtn.classList.toggle('active-tool');
+            logMessage(`Auto Connect ${autoConnect ? 'enabled' : 'disabled'}`, 'info');
+        });
+
+        const toggleAttractBtn = document.getElementById('toggleAttract');
+        toggleAttractBtn.addEventListener('click', () => {
+            attractMode = !attractMode;
+            toggleAttractBtn.classList.toggle('active-tool');
+            logMessage(`Attract Mode ${attractMode ? 'enabled' : 'disabled'}`, 'warning');
+        });
+
+        document.getElementById('resetSystem').addEventListener('click', () => {
+            glitches.length = 0;
+            stats.rift = stats.eruption = stats.nexus = stats.pulse = stats.total = 0;
+            stats.chaosLevel = 0;
+            autoSpawn = autoConnect = attractMode = false;
+            toggleAutoBtn.classList.remove('active-tool');
+            toggleConnectBtn.classList.remove('active-tool');
+            toggleAttractBtn.classList.remove('active-tool');
+            document.getElementById('quickAuto').classList.remove('active-tool');
+            world.entities.forEach(agent => {
+                if (Position.has(agent)) {
+                    Position.set(agent, new Vector2(Math.random() * canvas.width, Math.random() * canvas.height));
+                    Goals.set(agent, { primaryType: 0, targetX: 0, targetY: 0, completionPercentage: 0 });
+                }
+            });
+            logMessage('System reset', 'danger');
+            updateStats();
+        });
+
+        // Quick actions (unchanged)
+        document.getElementById('quickRift').addEventListener('click', () => spawnGlitch('rift'));
+        document.getElementById('quickEruption').addEventListener('click', () => spawnGlitch('eruption'));
+        document.getElementById('quickNexus').addEventListener('click', () => spawnGlitch('nexus'));
+        document.getElementById('quickPulse').addEventListener('click', () => spawnGlitch('pulse'));
+        const quickAutoBtn = document.getElementById('quickAuto');
+        quickAutoBtn.addEventListener('click', () => {
+            autoSpawn = !autoSpawn;
+            quickAutoBtn.classList.toggle('active-tool');
+            logMessage(`Auto Spawn ${autoSpawn ? 'enabled' : 'disabled'}`, 'success');
+        });
+
+        // Canvas click to spawn (unchanged)
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const types = ['rift', 'eruption', 'nexus', 'pulse'];
+            spawnGlitch(types[Math.floor(Math.random() * types.length)], x, y);
+        });
+
+        // Animation loop (updated to include agents)
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            time += 0.02;
+
+            // Run ArgOS systems
+            for (const system of world.systems) {
+                system(world);
+            }
+
+            // Update consciousness
+            world.entities.forEach(agent => {
+                if (CognitiveState.has(agent)) {
+                    consciousnessManager.updateConsciousness(agent);
+
+                    // Record glitch encounters as memories
+                    const detected = SensoryData.get(agent).entitiesDetected;
+                    detected.forEach(d => {
+                        const glitch = glitches[d.entityId];
+                        if (glitch) {
+                            memoryManager.recordEpisodicMemory(agent, {
+                                entityId: d.entityId,
+                                entityType: { rift: 2, eruption: 0, nexus: 0, pulse: 2 }[glitch.type], // Treat rifts/pulses as hazards, eruptions/nexuses as resources
+                                position: glitch.pos,
+                                importance: 0.7 + glitch.intensity * 0.3
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Auto spawn
+            if (autoSpawn && Math.random() < 0.05) {
+                spawnGlitch(['rift', 'eruption', 'nexus', 'pulse'][Math.floor(Math.random() * 4)]);
+            }
+
+            // Update and draw glitches
+            glitches.forEach((glitch, i) => {
+                glitch.update(noise);
+                glitch.draw(ctx);
+
+                if (autoConnect) {
+                    glitches.forEach((other, j) => {
+                        if (i !== j && glitch.pos.distance(other.pos) < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(glitch.pos.x, glitch.pos.y);
+                            ctx.lineTo(other.pos.x, other.pos.y);
+                            ctx.strokeStyle = `var(--tertiary${Math.floor(Math.min(glitch.life, other.life) / 3).toString(16)})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    });
+                }
+
+                if (attractMode) {
+                    glitches.forEach((other, j) => {
+                        if (i !== j) {
+                            const direction = other.pos.subtract(glitch.pos).normalize();
+                            glitch.velocity = glitch.velocity.add(direction.multiply(0.05));
+                        }
+                    });
+                });
+
+                if (glitch.life <= 0) {
+                    stats[glitch.type]--;
+                    stats.total--;
+                    glitches.splice(i, 1);
+                    logMessage(`${glitch.type.replace('_', ' ')} faded at (${Math.floor(glitch.pos.x)}, ${Math.floor(glitch.pos.y)})`, glitch.type);
+                    updateStats();
+                }
+            });
+
+            // Draw agents
+            world.entities.forEach(agent => {
+                if (!Position.has(agent) || !CognitiveState.has(agent)) return;
+                const pos = Position.get(agent);
+                const report = consciousnessManager.getConsciousnessReport(agent);
+                if (!report) return;
+
+                // Draw agent
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = report.isDreaming ? 'rgba(142, 68, 173, 0.8)' : '#2ecc71';
+                ctx.fill();
+
+                // Draw goal direction
+                if (Goals.has(agent)) {
+                    const targetX = Goals.get(agent).targetX;
+                    const targetY = Goals.get(agent).targetY;
+                    ctx.strokeStyle = '#2ecc71';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(pos.x, pos.y);
+                    const dx = targetX - pos.x;
+                    const dy = targetY - pos.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist > 0) {
+                        const lineLength = Math.min(dist, 15);
+                        ctx.lineTo(pos.x + (dx / dist) * lineLength, pos.y + (dy / dist) * lineLength);
+                    }
+                    ctx.stroke();
+                }
+
+                // Draw consciousness visualization
+                const integrationAura = 15 * (0.5 + report.integrationIndex * 0.5);
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, integrationAura, 0, 2 * Math.PI);
+                ctx.fillStyle = `rgba(41, 128, 185, ${0.2 * report.integrationIndex})`;
+                ctx.fill();
+
+                if (report.isDreaming) {
+                    const dreamIntensity = Math.sin(Date.now() / 300) * 0.3 + 0.7;
+                    const waveCount = 3;
+                    for (let i = 0; i < waveCount; i++) {
+                        const wavePhase = (Date.now() / 1000 + i * 0.5) % (Math.PI * 2);
+                        const waveSize = 5 + i * 3;
+                        ctx.beginPath();
+                        ctx.arc(pos.x, pos.y, waveSize, 0, 2 * Math.PI);
+                        ctx.strokeStyle = `rgba(142, 68, 173, ${0.6 * dreamIntensity * (1 - i/waveCount)})`;
+                        ctx.lineWidth = 1 + Math.sin(wavePhase) * 0.5;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Resize handler (unchanged)
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Start the system
+        animate();
+        updateSystemTime();
+    </script>
+</body>
+</html>
